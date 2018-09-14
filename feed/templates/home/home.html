@@ -1,0 +1,17 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            {% if user.is_authenticated %}
+            <p>User: {{ user.username }}    <a type="button" value="logout" href="{% url 'logout' %}">Logout</a></p>
+            {% endif %}
+        </div>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </body>
+</html>
