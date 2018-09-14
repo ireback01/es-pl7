@@ -16,7 +16,7 @@
             <p>Password: {{ form.password }}</p>
 
             <p><input type="submit" value="login"></p>
-            <a href="{{request.META.HTTP_REFERER}}">Back</a> 
+            <a href="/">Home</a>
             <a href="{% url 'register' %}">Register</a>       
             <input type="hidden" name="next" value = "{{ next }}">
         </form>
