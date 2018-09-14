@@ -1,11 +1,14 @@
+{% load static %}
 <html>
     <head>
-
+        <link rel="stylesheet" href="{% static 'feed/style.css' %}">
     </head>
     <body>
-        <div>
+        <div id="bar">
             {% if user.is_authenticated %}
-            <p>User: {{ user.username }}    <a type="button" value="logout" href="{% url 'logout' %}">Logout</a></p>
+            <p>User: {{ user.username }}   <a type="button" value="logout" href="{% url 'logout' %}">Logout</a></p>
+            {% else %}
+                <p>Logged out! <a href="{% url 'login'%}">Login</a>  <a href="{% url 'register'%}">Register</a></p>  
             {% endif %}
         </div>
 
