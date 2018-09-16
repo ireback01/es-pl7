@@ -1,0 +1,16 @@
+{% extends "home/home.html" %}
+
+{% block content %}
+ 	<ol>
+		{% for post in posts%}
+			    <li>
+			    	<i>{{ post.person.username }}</i>
+			    	<br>
+			    	<b>{{ post.text }}</b>
+			    </li>
+	    {% empty %}
+    		<li>There a currently no posts to display.</li>
+		{% endfor %}
+	</ol>
+
+{% endblock %}
