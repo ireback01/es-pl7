@@ -1,0 +1,19 @@
+{% extends 'home/home.html' %}
+{% block head %}
+<title>Edit Profile</title>
+{% endblock %}
+
+{% block content %}
+    
+    <div>      
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+    <a href="">Back</a>
+
+{% endblock %}

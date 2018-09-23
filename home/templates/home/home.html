@@ -6,8 +6,7 @@
     <body>
         <div id="bar">
             {% if user.is_authenticated %}
-            <p>User: {{ user.username }}   <a type="button" value="logout" href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'settings' %}">Settings</a>
+            <p>User: <a href="{% url 'profile' %}">{{ user.username }}</a> <a type="button" value="logout" href="{% url 'logout' %}">Logout</a>
             </p>
             {% else %}
                 <p>Logged out! <a href="{% url 'login'%}">Login</a>  <a href="{% url 'register'%}">Register</a></p>  
