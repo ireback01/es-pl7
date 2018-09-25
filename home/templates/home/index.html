@@ -4,7 +4,7 @@
  	<ol>
 		{% for post in posts%}
 			    <li>
-			    	<i>{{ post.person.username }}</i>
+			    	<i>{{ post.person.first_name }} {{ post.person.last_name }}</i>
 			    	<br>
 			    	<b>{{ post.text }}</b>
 			    </li>

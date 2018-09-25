@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
-from user.forms import SignUp,edit_profile #Custom register form
+from user.forms import SignUp, UserChangeForm #Custom register form
 
 @login_required
 def profile(request):
@@ -39,18 +39,18 @@ def edit_password(request):
 		else:
 			messages.error(request,'Error Below')
 	else:
-		form = passwordChange(request.user)
+		form = passwordChange(instance = request.user)
 	return render(request, 'profile/change_password.html', {'form': form} )
 
 
 @login_required
 def edit_profile(request):
 	if request.method == 'POST':
-		form = edit_profile(request.POST ,instance=request.user, request = request)
+		form = UserChangeForm(request.POST, instance=request.user)
 
 		if form.is_valid:
 			user  = form.save()
 			return redirect('/profile')
 	else:
-		form = edit_profile(instance=request.user)
+		form = UserChangeForm(instance = request.user)
 		return render(request, 'profile/edit_profile.html', {'form':form} )
