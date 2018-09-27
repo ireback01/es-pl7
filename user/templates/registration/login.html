@@ -6,7 +6,7 @@
         {%endif%}
 
         {%if next%}
-        <p>no access for u</p>
+        <p>You are not logged in yet</p>
         {%endif%}
 
         <form method="post">
@@ -16,7 +16,6 @@
             <p>Password: {{ form.password }}</p>
 
             <p><input type="submit" value="login"></p>
-            <a href="/">Home</a>
             <a href="{% url 'register' %}">Register</a>       
             <input type="hidden" name="next" value = "{{ next }}">
         </form>

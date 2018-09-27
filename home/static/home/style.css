@@ -1,4 +1,8 @@
-#bar{
+#header{
     background-color: red;
     color: yellow;
+}
+#icon{
+    height: 30px;
+    width:  30px;
 }

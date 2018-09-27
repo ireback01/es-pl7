@@ -4,13 +4,23 @@
         <link rel="stylesheet" href="{% static 'home/style.css' %}">
     </head>
     <body>
-        <div id="bar">
+        <div id="header">
             {% if user.is_authenticated %}
-            <p>User: <a href="{% url 'profile' %}">{{ user.username }}</a> <a type="button" value="logout" href="{% url 'logout' %}">Logout</a>
+            <p><a href="/"><img src="{% static 'home/a.png' %}" id="Icon"></a>
+                <a href="{% url 'profile' %}">{{ user.username }}</a> 
+                <a type="button" value="logout" href="/logout">Logout</a>
+                <input type="search">
+                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/b.png' %}" id="Icon"></a>
             </p>
-            {% else %}
-                <p>Logged out! <a href="{% url 'login'%}">Login</a>  <a href="{% url 'register'%}">Register</a></p>  
+            
+            <!-- ICON DE NOTIFICACOES 
+            <p><a href="/"><img src="{% static 'home/notification.png' %}" id="Notifications"></a>-->
+
+            <!-- ICON DE MENSAGENS 
+            <p><a href="/"><img src="{% static 'home/messages.png' %}" id="Messages"></a>-->
             {% endif %}
+
+           
         </div>
 
         <main>
