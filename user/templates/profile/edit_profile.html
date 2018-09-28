@@ -7,9 +7,12 @@
 
 <div>
 
-    <form method="post" action="{% url 'edit_profile' %}">
-        {% csrf_token %}
 
+
+    <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        
+        <p>Profile Picture: {{ profile_form.image }}</p>
         <p>Username:    {{ user.username }}</p>
         <p>Email:       {{ user.email }}</p>
         <p>First Name:  {{ user_form.first_name }}</p>

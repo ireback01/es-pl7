@@ -27,6 +27,7 @@ class ProfileForm(forms.ModelForm):
     affiliation = forms.CharField(max_length=30, required=False)
     facebook = forms.URLField(required=False,help_text='Insert Facebook url')
     linked_in =forms.URLField(required=False,help_text='Insert Linked In url')
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = Profile
@@ -35,4 +36,5 @@ class ProfileForm(forms.ModelForm):
             'affiliation',
             'facebook',
             'linked_in',
+            'image',
             )
