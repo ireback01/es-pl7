@@ -28,7 +28,7 @@ class ProfileForm(forms.ModelForm):
     facebook = forms.URLField(required=False,help_text='Insert Facebook url')
     linked_in =forms.URLField(required=False,help_text='Insert Linked In url')
     image = forms.ImageField(required=False)
-    orcid = forms.CharField(max_length=19, required=False)
+    orcid = forms.CharField(max_length=19, required=True)
 
     class Meta:
         model = Profile
