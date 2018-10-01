@@ -10,6 +10,7 @@ class Profile(models.Model):
     facebook     = models.URLField(max_length=256,blank=True)
     linked_in    = models.URLField(max_length=256,blank=True)
     image        = models.ImageField(upload_to='images/', blank=True, null=True)
+    orcid		 = models.CharField(max_length=19, blank=True);
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
