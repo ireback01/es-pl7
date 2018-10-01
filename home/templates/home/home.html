@@ -6,13 +6,12 @@
     <body>
         <div id="header">
             {% if user.is_authenticated %}
-            <p><a href="/"><img src="{% static 'home/home/a.png' %}" id="icon"></a>
-                <a href="{% url 'profile' %}">{{ user.username }}</a> 
-                <a type="button" value="logout" href="/logout">Logout</a>
+            <p><a href="/"><img src="{% static 'home/home/home_icon.png' %}" class="icon"></a>
+                <img src="/media/{{ profile.image }}" width="24" class="icon">
+                <a href="{% url 'profile' %}" class="text">{{ user.username }}</a> 
+                <a type="button" value="logout" href="/logout" class="text">Logout</a>
                 <input type="search">
-                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/b.png' %}" id="Icon"></a>
-                <img src="/media/{{ profile.image }}" width="24" align="right">
-
+                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/settings_icon.png' %}" class="icon"></a>
             </p>
             
             <!-- ICON DE NOTIFICACOES 

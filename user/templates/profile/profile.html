@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="{% static 'user/profile/profile.css' %}">
     </head>
     <body>
-        <div>
+        <div id="info">
+            <p><img src="/media/{{ profile.image }}" height="70" width="70" id="profile"></p>
             <p>Username:    {{ user.username }}</p>
             <p>Email:       {{ user.email }}</p>
             <p>First Name:  {{ user.first_name }}</p>

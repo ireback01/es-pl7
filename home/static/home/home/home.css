@@ -2,14 +2,26 @@
     background-color: darkseagreen;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
+    border-style: dashed;
 }
-#icon{
+.icon{
     height: 20px;
     width:  20px;
+    border-color: blue;
+    border-style: dotted;
+}
+
+.text {
+    text-decoration: none;
+    color: black;
 }
 
 body {
     background-color: darkseagreen;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    border-style: solid;
 }
