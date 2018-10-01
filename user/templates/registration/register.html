@@ -1,32 +1,34 @@
+{% load static %}
 <html>
-  <head></head>
-  <body>
-    <h2>Register User</h2>
-    <form method="post" action="{% url 'register' %}">
-      {% csrf_token %}
+  	<head>
+      	<link rel="stylesheet" href="{% static '/user/registration/register.css' %}">
+    </head>
+  	<body>
+    	<h2>Register User</h2>
+    	<form method="post" action="{% url 'register' %}">
+      	{% csrf_token %}
       
 
-      {% if user_form.errors %}
-      <p>There are errors in this form!</p>
-      {% endif %}
+      	{% if user_form.errors %}
+      	<p>There are errors in this form!</p>
+      	{% endif %}
       
-      {% for field in user_form %}
+     	{% for field in user_form %}
         <p>
-          {{ field.label_tag }}<br>
-          {{ field }}
-          {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-          {% endif %}
-          {% for error in field.errors %}
+      	    {{ field.label_tag }}<br>
+     	    {{ field }}
+      	    <!-- {% if field.help_text %} -->
+     	    <!-- <small style="color: grey">{{ field.help_text }}</small> -->
+          	<!-- {% endif %} -->
+          	{% for error in field.errors %}
             <p style="color: red">{{ error }}</p>
-          {% endfor %}
+          	{% endfor %}
         </p>
-      {% endfor %}
+      	{% endfor %}
 
-      <input type="submit" value="Register">
-      <a href="{% url 'login'%}">Login</a> 
-      <a href="/">Home</a>
-
+      	<input type="submit" value="Register">
+      	<a href="{% url 'login'%}">Login</a> 
+      	<a href="/">Home</a>
     </form>
   </body>
 </html>

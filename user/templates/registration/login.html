@@ -1,5 +1,8 @@
-<html>   
-    <head></head>
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static '/user/registration/login.css' %}">
+    </head>
     <body>
         {% if form.erros%}
         <p>There are errors on this form!</p>
