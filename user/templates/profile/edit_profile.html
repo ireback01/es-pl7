@@ -4,16 +4,28 @@
 {% endblock %}
 
 {% block content %}
-    
-    <div>      
-        
-        <form method="post" action="{% url 'edit_profile' %}">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit">Submit</button>
 
-        </form>
-    </div>
-    <a href="">Back</a>
+<div>
+
+
+
+    <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        
+        <p>Profile Picture: {{ profile_form.image }}</p>
+        <p>Username:    {{ user.username }}</p>
+        <p>Email:       {{ user.email }}</p>
+        <p>First Name:  {{ user_form.first_name }}</p>
+        <p>Last Name:   {{ user_form.last_name }}</p>
+        <p>ORCID:       {{ profile_form.orcid }}</p>
+        <p>Interests:   {{ profile_form.interests }}</p>
+        <p>Affiliation: {{ profile_form.affiliation }}</p>
+        <p>Facebook:    {{ profile_form.facebook }}</p>
+        <p>Linked In:   {{ profile_form.linked_in }}</p>
+
+        
+        <button type="submit" value="submit">Submit</button>
+    </form>
+</div>
 
 {% endblock %}

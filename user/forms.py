@@ -1,21 +1,42 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
-
+from .models import Profile
 
 class SignUp(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(max_length=254, help_text='Insert Valid Email  ')
 
-    #add database Columns if needed
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+        fields = ('username', 'email', 'password1', 'password2',)
 
 
-class UserChangeForm(UserChangeForm):
+class EditProfileForm(UserChangeForm):
+    first_name = forms.CharField(max_length=256, required=True)
+    last_name = forms.CharField(max_length=256, required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email',)
+        fields=(
+            'first_name',
+            'last_name',
+            'password',
+        )
+class ProfileForm(forms.ModelForm):
+    interests = forms.CharField(max_length=256, required=False)
+    affiliation = forms.CharField(max_length=30, required=False)
+    facebook = forms.URLField(required=False,help_text='Insert Facebook url')
+    linked_in =forms.URLField(required=False,help_text='Insert Linked In url')
+    image = forms.ImageField(required=False)
+    orcid = forms.CharField(max_length=19, required=False)
+
+    class Meta:
+        model = Profile
+        fields = (
+            'interests',
+            'affiliation',
+            'facebook',
+            'linked_in',
+            'image',
+            'orcid',
+            )

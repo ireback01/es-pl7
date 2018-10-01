@@ -6,11 +6,11 @@
       {% csrf_token %}
       
 
-      {% if form.errors %}
+      {% if user_form.errors %}
       <p>There are errors in this form!</p>
       {% endif %}
       
-      {% for field in form %}
+      {% for field in user_form %}
         <p>
           {{ field.label_tag }}<br>
           {{ field }}

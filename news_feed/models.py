@@ -6,6 +6,7 @@ class Post(models.Model):
     text = models.CharField(max_length=500)
     pubdate = models.DateTimeField(auto_now_add=True)
     person = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    interests = models.CharField(max_length=100, blank=True)
 
     # Metadata
     class Meta: 

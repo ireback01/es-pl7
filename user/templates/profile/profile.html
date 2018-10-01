@@ -2,13 +2,17 @@
 {% block content %}
 
     <div>
-        <p> Username:   {{user.username}}</p>
-        <p> First Name: {{user.first_name}}</p>
-        <p> Last Name:  {{user.last_name}}</p>
-        <p> Email:      {{user.email}}</p>
-        <p>password:    **********</p>
+        <p>Username:    {{ user.username }}</p>
+        <p>Email:       {{ user.email }}</p>
+        <p>First Name:  {{ user.first_name }}</p>
+        <p>Last Name:   {{ user.last_name }}</p>
+        <p>Interests:   {{ user.profile.interests }}</p>
+        <p>Affiliation: {{ user.profile.affiliation }}</p>
+        <p>Facebook:    {{ user.profile.facebook }}</p>
+        <p>Linked In:   {{ user.profile.linked_in }}</p>
+
+
     </div>
-    <a href="">Change Password</a>
-    <a href="">Change information</a>
+    <a href="{% url 'edit_profile' %}">Change information</a>
 
 {% endblock %}
