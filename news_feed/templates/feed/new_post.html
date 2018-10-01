@@ -1,8 +1,5 @@
-{% extends 'home/home.html' %}
-
-{% block content %}
-  <h2>Create New Post</h2>
-  <form method="post" action="{% url 'new_post' %}">
+<div id="new_post">
+  <form method="post" action="{% url 'new_post' %}" id="post">
     {% csrf_token %}
     {% for field in form %}
       <p>
@@ -18,4 +15,4 @@
     {% endfor %}
     <button type="submit">Create</button>
   </form>
-{% endblock %}
+</div>
