@@ -1,16 +1,16 @@
 {% load static %}
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'home/home/style.css' %}">
+        <link rel="stylesheet" href="{% static 'home/home/home.css' %}">
     </head>
     <body>
         <div id="header">
             {% if user.is_authenticated %}
-            <p><a href="/"><img src="{% static 'home/a.png' %}" id="Icon"></a>
+            <p><a href="/"><img src="{% static 'home/home/a.png' %}" id="icon"></a>
                 <a href="{% url 'profile' %}">{{ user.username }}</a> 
                 <a type="button" value="logout" href="/logout">Logout</a>
                 <input type="search">
-                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/b.png' %}" id="Icon"></a>
+                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/b.png' %}" id="Icon"></a>
                 <img src="/media/{{ profile.image }}" width="24" align="right">
 
             </p>

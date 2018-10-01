@@ -1,21 +1,29 @@
 {% extends 'home/home.html' %}
+{% load static %}
 
 {% block content %}
-  <h2>Create New Post</h2>
-  <form method="post" action="{% url 'new_post' %}">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'news_feed/feed/new_post.css' %}">
+  </head>
+  <body>
+      <h2>Create New Post</h2>
+      <form method="post" action="{% url 'new_post' %}">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
         {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Create</button>
-  </form>
+        <button type="submit">Create</button>
+      </form>
+      </body>
+</html>
 {% endblock %}
