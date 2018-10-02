@@ -2,13 +2,12 @@
     background-color: darkseagreen;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
-    border-style: dashed;
+    /* border-style: dashed; */
 }
 .icon{
     height: 20px;
     width:  20px;
-    border-color: blue;
-    border-style: dotted;
+    /* border-style: dotted; */
 }
 
 .text {
@@ -22,6 +21,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-main {
+/* main {
     border-style: solid;
-}
+} */

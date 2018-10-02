@@ -11,3 +11,8 @@ body {
 #profile {
     border-radius: 50%
 }
+
+.text {
+    text-decoration: none;
+    color: black;
+}
