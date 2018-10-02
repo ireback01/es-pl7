@@ -11,7 +11,14 @@
                 <a href="{% url 'profile' %}" class="text">{{ user.username }}</a> 
                 <a type="button" value="logout" href="/logout" class="text">Logout</a>
                 <input type="search">
+<<<<<<< HEAD
                 <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/settings_icon.png' %}" class="icon"></a>
+=======
+                <a href="{% url 'edit_profile' %}"><img src="{% static 'home/b.png' %}" id="Icon"></a>
+                {% if profile.image != '' %}
+                <img src="/media/{{ profile.image }}" width="24" align="right">
+                {% endif %}
+>>>>>>> f4fc35520359ac64b37fc167cc02b6d6dc3a93bf
             </p>
             
             <!-- ICON DE NOTIFICACOES 
