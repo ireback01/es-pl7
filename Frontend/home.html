@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'home/home/home.css' %}">
+    </head>
+    <body>
+        <div class="grid-container outline">
+        <header>
+            <div class="row">
+                {% if user.is_authenticated %}
+                <div class="col-20">
+                    <a href="/"><img class="logo" src="{% static 'home/home/home_icon.png' %}"></a>
+                </div>
+                <div class="col-20">
+                    <img class="photo" src="/media/{{ profile.image }}">
+                </div>
+                <div class="col-20">
+                    <a href="{% url 'profile' %}" class="text">{{ user.username }}</a>
+                </div> 
+                <div class="col-20">
+                    <a type="button" value="logout" href="/logout" class="text">Logout</a>
+                    <input type="search">
+                </div>
+                <div class="col-20">
+                    <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/settings_icon.png' %}" class="icon"></a>
+                </div>
+                
+    __
+                     --<a href="{% url 'edit_profile' %}"><img src="{% static 'home/b.png' %}" id="Icon"></a>
+                    {% if profile.image != '' %}
+                    <img src="/media/{{ profile.image }}" width="24" align="right">
+                    {% endif %} -->
+    
+    __
+                
+                <!-- ICON DE NOTIFICACOES 
+                <p><a href="/"><img src="{% static 'home/notification.png' %}" id="Notifications"></a>-->
+
+                <!-- ICON DE MENSAGENS 
+                <p><a href="/"><img src="{% static 'home/messages.png' %}" id="Messages"></a>-->
+                {% endif %}
+
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-100">
+                <main>
+                    {% block content %}
+                    
+                    {% endblock %}
+                </main>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

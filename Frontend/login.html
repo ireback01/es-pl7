@@ -1,0 +1,31 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static '/user/registration/login.css' %}">
+    </head>
+    <body>
+        <div class="grid-container outline">
+            <div class="row-bigempty"></div>
+                {% if form.erros%}
+                <p>There are errors on this form!</p>
+                {%endif%}
+
+                {%if next%}
+                <p>You are not logged in yet</p>
+                {%endif%}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <p>Username: {{ form.username }}</p>
+                    <p>Password: {{ form.password }}</p>
+
+                    <p><input type="submit" value="login"></p>
+                    <a href="{% url 'register' %}">Register</a>
+                    <p>Forgot password? <a href="{% url 'password_reset' %}">Click here to reset</a>.</p>
+                    <input type="hidden" name="next" value = "{{ next }}">
+                </form>
+        </div>
+    </body>
+</html>
+
