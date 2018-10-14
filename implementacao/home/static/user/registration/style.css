@@ -1,0 +1,47 @@
+body {
+    background-color: #009740 !important;
+}
+a {
+	color: white !important;
+}
+h1 {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	text-align: center;
+}
+.col-margin {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.lab-btn {
+	background-color: #93C020;
+	color: white;
+	border-style: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 30px;
+	padding-right: 30px;
+	border-radius: 150px;
+	cursor: pointer;
+	font-weight: bold;
+}
+.lab-btn:hover {
+	-webkit-animation-name: color-effect;
+    -webkit-animation-duration: 2.5s;
+    animation-name: color-effect;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+@-webkit-keyframes color-effect{
+    from{background-color: #93C020;} 
+    to{background-color: #98CA22;}
+}
+@keyframes color-effect{
+    from{background-color: #93C020;} 
+    to{background-color: #98CA22;}
+}
+.lab-btn:focus {
+	outline : 0;
+	-moz-outline : 0;
+	border : 0;
+}

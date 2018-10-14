@@ -10,7 +10,11 @@ from .models import Profile
 
 @login_required
 def profile(request):
-	arg = {'user': request.user}
+	profile = Profile.objects.get(id=request.user.id)
+	arg = {
+		'user': request.user,
+		'profile':profile
+	}
 	return render(request,'profile/profile.html',arg)
 
 @login_required

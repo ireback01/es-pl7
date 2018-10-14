@@ -1,18 +1,6 @@
-body {
-    color: black;
-    background-color: darkseagreen;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#info {
-    text-align: center;
-}
-
-#profile {
+.avatar {
     border-radius: 50%
 }
-
-.text {
-    text-decoration: none;
-    color: black;
+a {
+	color: white !important;
 }
