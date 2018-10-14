@@ -1,9 +1,22 @@
 #header{
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    position: fixed;
+    top:0;
+    margin-left: 0;
+}
+
+#space{
+    height:50px;
+}
+body {
     background-color: darkseagreen;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
-    /* border-style: dashed; */
 }
+
+
 .icon{
     height: 20px;
     width:  20px;
@@ -15,12 +28,10 @@
     color: black;
 }
 
-body {
-    background-color: darkseagreen;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
+#Post{
+    background-color: white;
+    margin:auto;
+    border: 3px solid #73AD21;    
+    width: 400;
+    height: 150;
 }
-
-/* main {
-    border-style: solid;
-} */

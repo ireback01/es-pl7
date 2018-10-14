@@ -1,19 +1,23 @@
 {% extends "home/home.html" %}
 
 {% block content %}
-	{% include 'feed/new_post.html' with form=form %}
+    {% include 'feed/new_post.html' with form=form %}
+    <div id="Home">
  	<ol>
 		{% for post in posts%}
-			    <li>
+            <div id="Post">        
+                <li>
 			    	<i>{{ post.person.first_name }} {{ post.person.last_name }}</i>
 			    	<br>
 			    	<b>{{ post.text }}</b>
-			    </li>
+                </li>
+            </div>
+            <br>
 	    {% empty %}
     		<li>There a currently no posts to display.</li>
 		{% endfor %}
 	</ol>
-
+</div>
 {% endblock %}
 
 <script type="text/javascript">
