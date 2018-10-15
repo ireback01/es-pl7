@@ -14,9 +14,9 @@
                 </div>
                 <div class="col-1 my-auto">
                     {% if profile.image != '' %}
-                    <a href="{% url 'profile' %}"><img src="/media/{{ profile.image }}" width="24"></a>
+                        <a href="{% url 'profile' %}" value="{{user.username}}"><img src="/media/{{ profile.image }}" width="24"></a>
                     {% else %}
-                    <a href="{% url 'profile' %}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
+                        <a href="{% url 'profile' %}" value="{{user.username}}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
                     {% endif %}
                 </div>
                 <div class="col-1 my-auto">
@@ -29,7 +29,7 @@
                     <input type="search" placeholder="Search..." class="form-control">
                 </div>
                 <div class="col-3 my-auto">
-                    <span>Welcome <strong>{{ user.username }}</strong></span>
+                    <span>Welcome: <strong>{{ request.user.username }}</strong></span>
                 </div>
                 <div class="col-2 my-auto">
                     <a value="logout" href="/logout"><button class="lab-btn-dark">Logout</button></a>

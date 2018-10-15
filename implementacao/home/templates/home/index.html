@@ -7,7 +7,7 @@
 		{% for post in posts%}
             <div id="Post">        
                 <li>
-			    	<i>{{ post.person.first_name }} {{ post.person.last_name }}</i>
+			    	<i> <a href="{% url 'profile_user' post.person.username%}" value="{{post.person.username}}"> {{ post.person.first_name }} {{ post.person.last_name }}</a></i>
 			    	<br>
 			    	<b>{{ post.text }}</b>
                 </li>

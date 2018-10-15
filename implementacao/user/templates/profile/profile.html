@@ -14,9 +14,9 @@
             <div class="row">
                 <div class="col col-margin">
                     {% if profile.image != '' %}
-                    <a href="{% url 'profile' %}"><img src="/media/{{ profile.image }}" width="64" class="avatar"></a>
+                    <img src="/media/{{ profile.image }}" width="64" class="avatar">
                     {% else %}
-                    <a href="{% url 'profile' %}"><img src="{% static '/home/home/icons/profile.png' %}" width="64"></a>
+                    <img src="{% static '/home/home/icons/profile.png' %}" width="64">
                     {% endif %}
                 </div>
             </div>
@@ -67,7 +67,10 @@
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    <a href="{% url 'edit_profile' %}">Edit profile</a>
+                    {% if request.user.username == user.username %}
+                        <a href="{% url 'edit_profile' %}">Edit profile</a>
+                    {% endif %}
+                
                 </div>
             </div>
         </div>

@@ -7,7 +7,9 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Profile
+from django.contrib.auth.models import User
 
+'''
 @login_required
 def profile(request):
 	profile = Profile.objects.get(id=request.user.id)
@@ -16,6 +18,23 @@ def profile(request):
 		'profile':profile
 	}
 	return render(request,'profile/profile.html',arg)
+'''
+
+@login_required
+def profile(request,username=None):
+	if username:
+		user = User.objects.get(username=username)
+		profile = Profile.objects.get(id=user.id)
+	
+	else:
+		user = request.user
+		profile = Profile.objects.get(id=request.user.id)
+	arg = {
+		'user' : user,
+		'profile' : profile
+	}
+	return render(request,'profile/profile.html',arg)
+
 
 @login_required
 def logout_view(request):
@@ -36,7 +55,12 @@ def register(request):
 			user = authenticate(username=username, password=password) #takes care of hashing and so on
 			messages.info(request, 'User created with Success!')
 			login(request,user)
-			return redirect('/profile/edit_profile/')
+			profile = Profile.objects.get(id=user.id)
+			arg={
+				'user':user,
+				'profile' : profile 
+			}
+			return redirect('/profile/edit_profile/',arg)
 	else:
 		user_form = SignUp()
 	
