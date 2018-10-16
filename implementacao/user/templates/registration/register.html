@@ -4,8 +4,25 @@
     <link rel="stylesheet" href="{% static '/user/registration/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      function load() {
+        var username_input = document.getElementById("id_username");
+        username_input.placeholder = "Username";
+        username_input.classList.add("lab-input");
+        var email_input = document.getElementById("id_email");
+        email_input.placeholder = "Email";
+        email_input.classList.add("lab-input");
+        var password_input1 = document.getElementById("id_password1");
+        password_input1.placeholder = "Password";
+        password_input1.classList.add("lab-input");
+        var password_input2 = document.getElementById("id_password2");
+        password_input2.placeholder = "Password confirmation";
+        password_input2.classList.add("lab-input");
+      }
+    </script>
   </head>
-  <body>
+
+  <body onload="load()">
     <h1>Register User</h1>
     <form method="post" action="{% url 'register' %}">
       {% csrf_token %}
@@ -13,7 +30,7 @@
         {% for field in user_form %}
         <div class="row">
           <div class="col col-margin">
-            {{ field.label_tag }} {{ field }}
+            {{ field }}
           </div>
         </div>
         <!-- {% if field.help_text %} -->
