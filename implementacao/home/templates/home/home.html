@@ -14,9 +14,9 @@
                 </div>
                 <div class="col-1 my-auto">
                     {% if profile.image != '' %}
-                        <a href="{% url 'profile' %}" value="{{user.username}}"><img src="/media/{{ profile.image }}" width="24"></a>
+                        <a href="{% url 'profile' request.user.username %}" value="{{request.user.username}}"><img src="/media/{{ profile.image }}" width="24"></a>
                     {% else %}
-                        <a href="{% url 'profile' %}" value="{{user.username}}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
+                        <a href="{% url 'profile' request.user.username %}" value="{{request.user.username}}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
                     {% endif %}
                 </div>
                 <div class="col-1 my-auto">

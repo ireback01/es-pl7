@@ -9,26 +9,13 @@ from django.shortcuts import render_to_response
 from .models import Profile
 from django.contrib.auth.models import User
 
-'''
-@login_required
-def profile(request):
-	profile = Profile.objects.get(id=request.user.id)
-	arg = {
-		'user': request.user,
-		'profile':profile
-	}
-	return render(request,'profile/profile.html',arg)
-'''
+
 
 @login_required
-def profile(request,username=None):
-	if username:
-		user = User.objects.get(username=username)
-		profile = Profile.objects.get(id=user.id)
-	
-	else:
-		user = request.user
-		profile = Profile.objects.get(id=request.user.id)
+def profile(request,username):
+	user = User.objects.get(username=username)
+	profile = Profile.objects.get(id=user.id)
+
 	arg = {
 		'user' : user,
 		'profile' : profile
