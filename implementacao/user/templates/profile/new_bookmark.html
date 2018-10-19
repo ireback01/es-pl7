@@ -1,15 +1,15 @@
 {% load static %}
 
 {% block content %}
-<!--
+
 <html>
   <head>
-    <link rel="stylesheet" href="{% static 'news_feed/feed/new_post.css' %}">
+    <link rel="stylesheet" href="{% static 'news_feed/feed/new_bookmark.css' %}">
   </head>
   <body>
-    <div id="new_post">
-      <h2>Create New Post</h2>
-      <form method="post" action="{% url 'new_post' %}">
+    <div id="new_bookmark">
+      <h2>Create New Bookmark</h2>
+      <form method="post" action="{% url 'new_bookmark' %}">
         {% csrf_token %}
         {% for field in form %}
           <p>
@@ -27,5 +27,5 @@
           </form>
         </div>
       </body>
-</html>-->
+</html>
 {% endblock %}

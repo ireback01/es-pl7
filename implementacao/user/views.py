@@ -9,6 +9,8 @@ from django.shortcuts import render_to_response
 from .models import Profile
 from django.contrib.auth.models import User
 from news_feed.models import Hashtag
+from news_feed.forms import BookmarkForm #Custom register form
+from news_feed.models import Bookmark
 
 @login_required
 def profile(request,username):
@@ -95,3 +97,30 @@ def edit_profile(request):
 			'profile_form':profile_form,
 			'profile':profile
 			} )
+
+@login_required
+def create_bookmark(request):
+	if request.method == 'POST':
+		form = BookmarkForm(request.POST)
+
+		if form.is_valid():
+			aux = form.save()
+			interests_string = form.cleaned_data['interests']
+			interests = interests_string.split(" ")
+			for interest in interests:
+				try:
+				    bk = Hashtag.objects.get(text=interest)   
+				except Hashtag.DoesNotExist:
+				    bk = Hashtag.objects.create(text=interest)
+			aux.user = request.user.profile
+			aux.hashtags.add(bk)
+			aux.save
+			return redirect('home')
+	else:
+		form = BookmarkForm()
+	return render(request, 'profile/new_bookmark.html', {'form': form})
+
+@login_required
+def index_bookmarks(request):
+	bookmark_list = request.user.profile.bookmarks.all()
+	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list})

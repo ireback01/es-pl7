@@ -8,22 +8,6 @@ from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
 from user.models import Profile
 
-'''
-@login_required
-def create_bookmark(request):
-	if request.method == 'POST':
-		form = BookmarkForm(request.POST)
-
-		if form.is_valid():
-			aux = form.save(commit=False)
-			aux.save
-			return redirect('home')
-	else:
-<<<<<<< HEAD
-		form = PostForm()
-	return render(request, 'feed/new_post.html', {'form': form})
-'''
-
 @login_required
 def home_tweets(request):
 	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
