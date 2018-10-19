@@ -3,24 +3,22 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from news_feed.forms import PostForm #Custom register form
-from news_feed.models import Post
+from news_feed.forms import BookmarkForm #Custom register form
+from news_feed.models import Bookmark
 
 @login_required
-def create_post(request):
+def create_bookmark(request):
 	if request.method == 'POST':
-		form = PostForm(request.POST)
+		form = BookmarkForm(request.POST)
 
 		if form.is_valid():
-			#Saves the object without sending it to the database
-			aux = form.save(commit=False) 
-			#Checks there is an authenticated user
-			if request.user.is_authenticated:
-				aux.person = request.user
-			aux.save()
+			aux = form.save(commit=False)
+			aux.save
 			return redirect('home')
 	else:
-		form = PostForm()
-	return render(request, 'feed/new_post.html', {'form': form})
+		form = BookmarkForm()
 
-
+@login_required
+def search_bookmarks(request, hashtag):
+	bookmark_list = Bookmark.objects.filter(hashtags__text == hashtag).distinct()
+	return bookmark_list
