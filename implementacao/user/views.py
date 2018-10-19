@@ -8,8 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from .models import Profile
 from django.contrib.auth.models import User
-
-
+from news_feed.models import Hashtag
 
 @login_required
 def profile(request,username):
@@ -37,7 +36,7 @@ def register(request):
 
 		if user_form.is_valid():
 			user_form.save() #Save info to database -> create new user
-			username = user_form.cleaned_data['username'] #take username from form
+			username = user_form.cleaned_data['username'] #take username fromcleaned_data form
 			password = user_form.cleaned_data['password1'] #take password from form
 			user = authenticate(username=username, password=password) #takes care of hashing and so on
 			messages.info(request, 'User created with Success!')
@@ -50,7 +49,6 @@ def register(request):
 			return redirect('/profile/edit_profile/',arg)
 	else:
 		user_form = SignUp()
-	
 	return render(request,'registration/register.html',{'user_form' : user_form } )
 
 @login_required
@@ -62,6 +60,15 @@ def edit_profile(request):
 		user_form = EditProfileForm(request.POST, instance=request.user)
 		#return render_to_response('profile/debug.html', {'profile_form': profile_form})
 		if profile_form.is_valid() and user_form.is_valid():
+			interests_string = profile_form.cleaned_data['interests']
+			interests = interests_string.split(" ")
+			for interest in interests:
+				try:
+				    bk = Hashtag.objects.get(text=interest)   
+				except Hashtag.DoesNotExist:
+				    bk = Hashtag.objects.create(text=interest)
+				request.user.profile.interests.add(bk)
+				request.user.save
 			profile_form.save()
 			user_form.save()
 			return redirect('/')
@@ -72,7 +79,11 @@ def edit_profile(request):
 			'profile':profile
 			} ) 
 	else:
-		profile_form = ProfileForm(instance = request.user.profile)
+		string = ""
+		if(request.user.profile.interests != None):
+			for interest in request.user.profile.interests.all():
+				string = string + str(interest)
+		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
 		user_form = EditProfileForm(instance = request.user)
 		return render(request, 'profile/edit_profile.html', {
 			'user_form':user_form,
