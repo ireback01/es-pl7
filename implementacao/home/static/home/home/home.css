@@ -1,8 +1,5 @@
-body {
-    background-color: #009740 !important;
-}
 header{
-    background-color: #93C020;
+    background-color: #BCFBBA;
     padding-top: 15px;
     padding-bottom: 15px;
     position: fixed;
@@ -87,6 +84,9 @@ main {
     height: 24px;
     width:  24px;
     /* border-style: dotted; */
+}
+.logo {
+    width: 32px;
 }
 #Post{
     background-color: white;
