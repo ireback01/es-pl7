@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 import tweepy
 from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
+from user.models import Profile
 
 '''
 @login_required
@@ -22,34 +24,23 @@ def create_bookmark(request):
 	return render(request, 'feed/new_post.html', {'form': form})
 '''
 
-
-
 @login_required
 def home_tweets(request):
-	consumer_key = "oH5g7eTSBNDnZu6599WkOovjI"
-	consumer_secret = "9EIZusmUf7qWdtDTaRvVmpPFDnTUzrr5P20Tlk9OhAfNOoHKPY"
-	access_token = "1052857003385778177-oEgxU5nlfm8RwHYSqLESH6tPCS1gAd"
-	access_token_secret = "WAfh4YvQ9lueDiu9PRnAVuibFo7zGSR6C5zVh08pOrhCV"
-	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-	auth.set_access_token(access_token, access_token_secret)
+	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
+	auth.set_access_token(getattr(settings, 'ACCESS_TOKEN'), getattr(settings, 'ACCESS_TOKEN_SECRET'))
 
 	api = tweepy.API(auth)
-
-	profile = Profile.objects.get(request.user.id)
-	interests = profile.interests
-
-	args={}
-	for interest : interests:
-		tweet = tweepy.Cursor(api.search, q=interest, rpp=2).items(2)
-		args.update({'tweet':tweet})
-
 	
+	profile = Profile.objects.get(id=request.user.id)
+	interests = profile.interests.all()
 
+	args = list()
+	for interest in interests:
+		args.append(tweepy.Cursor(api.search, q=str(interest), rpp=2).items(2))
 
-	return render(request,'feed/home_tweets.html',args)
+	return render(request,'feed/home_tweets.html',{'args':args})
 
 @login_required
 def search_bookmarks(request, hashtag):
 	bookmark_list = Bookmark.objects.filter(hashtags__text == hashtag).distinct()
 	return bookmark_list
-

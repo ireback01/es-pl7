@@ -14,10 +14,14 @@ from news_feed.models import Hashtag
 def profile(request,username):
 	user = User.objects.get(username=username)
 	profile = Profile.objects.get(id=user.id)
-
+	string = ""
+	if(request.user.profile.interests != None):
+		for interest in request.user.profile.interests.all():
+			string = string + str(interest)
 	arg = {
 		'user' : user,
-		'profile' : profile
+		'profile' : profile,
+		'interests' : string,
 	}
 	return render(request,'profile/profile.html',arg)
 
@@ -62,6 +66,7 @@ def edit_profile(request):
 		if profile_form.is_valid() and user_form.is_valid():
 			interests_string = profile_form.cleaned_data['interests']
 			interests = interests_string.split(" ")
+			request.user.profile.interests.clear()
 			for interest in interests:
 				try:
 				    bk = Hashtag.objects.get(text=interest)   
