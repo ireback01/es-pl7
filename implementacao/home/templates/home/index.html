@@ -1,4 +1,40 @@
 {% extends "home/home.html" %}
 
 {% block content %}
+    {% include 'feed/new_post.html' with form=form %}
+    <div id="Home">
+ 	<ol>
+		{% for post in posts%}
+            <div id="Post">        
+                <li>
+			    	<i>{{ post.person.first_name }} {{ post.person.last_name }}</i>
+			    	<br>
+			    	<b>{{ post.text }}</b>
+                </li>
+            </div>
+            <br>
+	    {% empty %}
+    		<li>There a currently no posts to display.</li>
+		{% endfor %}
+	</ol>
+</div>
 {% endblock %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#post').submit(function() { // catch the form's submit event
+        $.ajax({ // create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function(response) { // on success..
+                $('#success_div').html(response); // update the DIV
+            },
+            error: function(e, x, r) { // on error..
+                $('#error_div').html(e); // update the DIV
+            }
+        });
+        return false;
+    });
+});
+</script>
