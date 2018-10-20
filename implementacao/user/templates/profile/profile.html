@@ -14,9 +14,9 @@
             <div class="row">
                 <div class="col col-margin">
                     {% if profile.image != '' %}
-                    <a href="{% url 'profile' %}"><img src="/media/{{ profile.image }}" width="64" class="avatar"></a>
+                    <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" width="64" class="avatar"></a>
                     {% else %}
-                    <a href="{% url 'profile' %}"><img src="{% static '/home/home/icons/profile.png' %}" width="64"></a>
+                    <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" width="64"></a>
                     {% endif %}
                 </div>
             </div>
@@ -65,11 +65,14 @@
                     Linked In: {{ user.profile.linked_in }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col col-margin">
-                    <a href="{% url 'edit_profile' %}">Edit profile</a>
-                </div>
-            </div>
+            <div class="row"> 
+                <div class="col col-margin"> 
+                    {% if request.user.username == user.username %} 
+                        <a href="{% url 'edit_profile' %}" id="edit">Edit profile</a> 
+                        <a href="{% url 'edit_profile' %}">Edit profile</a> 
+                    {% endif %} 
+                </div> 
+            </div> 
         </div>
     </body>
 </html>
