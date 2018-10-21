@@ -20,8 +20,6 @@ def profile(request,username):
 	if(request.user.profile.interests != None):
 		for interest in request.user.profile.interests.all():
 			string = string + str(interest)
-	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-	print(string)
 	arg = {
 		'user' : user,
 		'profile' : profile,

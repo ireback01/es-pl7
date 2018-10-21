@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from math import floor
 import tweepy
 from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
@@ -21,7 +22,7 @@ def home_tweets(request):
 
 	if interests.exists():
 		for interest in interests:
-			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=2).items(2))
+			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=1).items(floor(20/interests.count())))
 
 	return render(request,'feed/home_tweets.html',{'args':args})
 
