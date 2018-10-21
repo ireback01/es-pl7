@@ -17,10 +17,11 @@ def home_tweets(request):
 	
 	profile = Profile.objects.get(id=request.user.id)
 	interests = profile.interests.all()
-
 	args = list()
-	for interest in interests:
-		args.append(tweepy.Cursor(api.search, q=str(interest), rpp=2).items(2))
+
+	if interests.exists():
+		for interest in interests:
+			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=2).items(2))
 
 	return render(request,'feed/home_tweets.html',{'args':args})
 

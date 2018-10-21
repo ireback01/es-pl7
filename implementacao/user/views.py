@@ -20,6 +20,8 @@ def profile(request,username):
 	if(request.user.profile.interests != None):
 		for interest in request.user.profile.interests.all():
 			string = string + str(interest)
+	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	print(string)
 	arg = {
 		'user' : user,
 		'profile' : profile,
@@ -66,16 +68,17 @@ def edit_profile(request):
 		user_form = EditProfileForm(request.POST, instance=request.user)
 		#return render_to_response('profile/debug.html', {'profile_form': profile_form})
 		if profile_form.is_valid() and user_form.is_valid():
-			interests_string = profile_form.cleaned_data['interests']
-			interests = interests_string.split(" ")
 			request.user.profile.interests.clear()
-			for interest in interests:
-				try:
-				    bk = Hashtag.objects.get(text=interest)   
-				except Hashtag.DoesNotExist:
-				    bk = Hashtag.objects.create(text=interest)
-				request.user.profile.interests.add(bk)
-				request.user.save
+			interests_string = profile_form.cleaned_data['interests'].strip()
+			if not interests_string == "":
+				interests = interests_string.split(" ")
+				for interest in interests:
+					try:
+					    bk = Hashtag.objects.get(text=interest)   
+					except Hashtag.DoesNotExist:
+					    bk = Hashtag.objects.create(text=interest)
+					request.user.profile.interests.add(bk)
+					request.user.save
 			profile_form.save()
 			user_form.save()
 			return redirect('/')
