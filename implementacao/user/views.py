@@ -115,7 +115,7 @@ def create_bookmark(request):
 				    bk = Hashtag.objects.create(text=interest)
 			aux.user = request.user.profile
 			aux.hashtags.add(bk)
-			aux.save
+			aux.save()
 			return redirect('home')
 	else:
 		form = BookmarkForm()
