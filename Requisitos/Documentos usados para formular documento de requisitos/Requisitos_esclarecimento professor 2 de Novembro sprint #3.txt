@@ -1,0 +1,44 @@
+Toda a gente é investigador (logo tem ORCID)
+
+Buscar 50 ao Twitter e 50 ao Reddit e juntá-los por ordem cronológica.
+
+Afiliação e grupo de investigação (links é o ideal)
+
+Falta o grupo de investigação (pertence à investigação, regra geral)
+
+Tirar o tema da religião
+
+Criar posts para o Twiteer, não para o Reddit
+
+Os posts ficam armazenados no Twiiterr, e vão-se buscar quando a plataforma inicia
+
+Opcional -> Apagar tweets
+
+Ir buscar os posts de áreas de interesses do Reddit
+
+Os posts não têm texto -> Twitter só tem 148 caracteres
+Po~em-se tudo no titulo
+
+O REddit o título é um titulo.
+No Twitter o texto é um como se fosse um titulo.
+
+Os posts não têm comentários nem likes. As plataformas têm esses dados. Vai-se buscar esses dados conforme a relevância
+
+Usar um buffer com 500 posts. As mais antigas são descartadas em prol do mais recentes.
+
+O titulo do Reddit deve ser sempre constante.
+Se guardei a conversa, deve ir para a conversa onde estávamos (para avançar deve-se guardar novamente a bookmark). (Não deve avançar nem ir para a últma).
+Perguntar se quer guardar o estado (opção por defeito???)
+
+Recebo tudo do Twitter se não ytiver conta (não há maneira de saber os interesses do utilizador)
+Ter conta ou não só afeta os interesses do utilizador. DEve aparecer sempre no feed.
+
+As noticias do Twitter e do Redit vêm sempre indiscrinadamente
+
+Não há mensagens nem conexões. Só feeds do Twiiter e Reddit e publicações para o Twitter
+
+Ter conta no Twitter significa que o Twitter automaticamente vê quais são os meus interesses. Deve-se exportar os interesses para a conta do Twitter
+A alteração deve ir para o Twitter. Pode-se alterar/fazer/apagar interesses.
+
+É necessário ter conta no Twitter para fazer posts para o Twitter. Fazer posts é um requisito.
+
