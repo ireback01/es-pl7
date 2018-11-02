@@ -28,39 +28,56 @@
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    First Name: {{ user_form.first_name }}
+                    First Name: {{ user_form.first_name }} *
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Last Name: {{ user_form.last_name }}
+                    Last Name: {{ user_form.last_name }} *
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    ORCID: {{ profile_form.orcid }}
+                    ORCID: {{ profile_form.orcid }} {{ profile_form.orcid.help_text }}
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Interests: {{ profile_form.interests }}
+                    Interests: {{ profile_form.interests }} {{ profile_form.interests.help_text }}
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Affiliation: {{ profile_form.affiliation }}
+                    Affiliation: {{ profile_form.affiliation }} {{ profile_form.affiliation.help_text }}
+                </div>
+            </div>
+             <div class="row">
+                <div class="col col-margin">
+                    Linked In: {{ profile_form.linked_in }} {{ profile_form.linked_in.help_text }}
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Facebook: {{ profile_form.facebook }}
+                    Gender: {{ profile_form.gender }}
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Linked In: {{ profile_form.linked_in }}
+                    Birth Date: {{ profile_form.birth_date }} {{ profile_form.birth_date.help_text }}
                 </div>
             </div>
+            <div class="row">
+                <div class="col col-margin">
+                    About Me: {{ profile_form.about_me }} {{ profile_form.about_me.help_text }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Tweet Ammount: {{ profile_form.tweet_ammount }} {{ profile_form.tweet_ammount.help_text }}
+                </div>
+            </div>
+
+            * -> Mandatory Fields
             <div class="row">
                 <div class="col col-margin">
                     <button type="submit" value="submit" class="lab-btn">Submit</button>

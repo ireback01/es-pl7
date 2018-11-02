@@ -8,12 +8,13 @@
     <body>
         {% for tweets in args %}
             {% for tweet in tweets %}
-            <a href="https://twitter.com/{{tweet.user.name}}/status/{{tweet.id_str}}">
-                <div id= 'tweet'>
-                    <p>{{ tweet.text }}</p>
-                </div>
+            <div id= 'tweet'>
+                <a href="https://twitter.com/{{tweet.user.name}}/status/{{tweet.id_str}}"> {{tweet.full_text}}</a>
+                    {% if 'media' in tweet.entities %}
+                        <img id="tweet_image" src={{tweet.extended_entities.media.0.media_url}} >
+                    {% endif %}
+            </div>
                 <div id ="interval"></div>
-            </a>
             {% endfor %}
         {% endfor %}
     </body>

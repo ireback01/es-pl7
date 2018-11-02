@@ -15,15 +15,14 @@ def home_tweets(request):
 	auth.set_access_token(getattr(settings, 'ACCESS_TOKEN'), getattr(settings, 'ACCESS_TOKEN_SECRET'))
 
 	api = tweepy.API(auth)
-	
+
 	profile = Profile.objects.get(id=request.user.id)
 	interests = profile.interests.all()
 	args = list()
 
 	if interests.exists():
 		for interest in interests:
-			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=1).items(floor(20/interests.count())))
-
+			args.append(tweepy.Cursor(api.search,lang='en', q=str(interest)+" -filter:retweets", rpp=1, tweet_mode='extended').items(profile.tweet_ammount))
 	return render(request,'feed/home_tweets.html',{'args':args})
 
 @login_required
