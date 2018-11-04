@@ -1,0 +1,21 @@
+{% extends "home/home.html" %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'news_feed/feed/tweet.css' %}">
+    </head>
+    <body>
+        {% for tweets in args %}
+            {% for tweet in tweets %}
+            <a href="https://twitter.com/{{tweet.user.name}}/status/{{tweet.id_str}}">
+                <div id= 'tweet'>
+                    <p>{{ tweet.text }}</p>
+                </div>
+                <div id ="interval"></div>
+            </a>
+            {% endfor %}
+        {% endfor %}
+    </body>
+
+{% endblock %}

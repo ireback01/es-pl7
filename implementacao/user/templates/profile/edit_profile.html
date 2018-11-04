@@ -1,31 +1,74 @@
-{% extends 'home/home.html' %}
-{% block head %}
-<title>Edit Profile</title>
-{% endblock %}
-
-{% block content %}
-
-<div>
-
-
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% extends 'home/home.html' %}
+    {% block content %}
     <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
         {% csrf_token %}
-        
-        <p>Profile Picture: {{ profile_form.image }}</p>
-        <p>Username:    {{ user.username }}</p>
-        <p>Email:       {{ user.email }}</p>
-        <p>First Name:  {{ user_form.first_name }}</p>
-        <p>Last Name:   {{ user_form.last_name }}</p>
-        <p>ORCID:       {{ profile_form.orcid }}</p>
-        <p>Interests:   {{ profile_form.interests }}</p>
-        <p>Affiliation: {{ profile_form.affiliation }}</p>
-        <p>Facebook:    {{ profile_form.facebook }}</p>
-        <p>Linked In:   {{ profile_form.linked_in }}</p>
-
-        
-        <button type="submit" value="submit">Submit</button>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col col-margin">
+                    Profile Picture: {{ profile_form.image }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Username: {{ user.username }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Email: {{ user.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    First Name: {{ user_form.first_name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Last Name: {{ user_form.last_name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    ORCID: {{ profile_form.orcid }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Interests: {{ profile_form.interests }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Affiliation: {{ profile_form.affiliation }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Facebook: {{ profile_form.facebook }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Linked In: {{ profile_form.linked_in }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    <button type="submit" value="submit" class="lab-btn">Submit</button>
+                </div>
+            </div>
+        </div>
     </form>
-</div>
+    {% endblock %}
+</body>
+</html>
 
-{% endblock %}

@@ -1,34 +1,70 @@
 {% load static %}
 <html>
-  	<head>
-      	<link rel="stylesheet" href="{% static '/user/registration/register.css' %}">
-    </head>
-  	<body>
-    	<h2>Register User</h2>
-    	<form method="post" action="{% url 'register' %}">
-      	{% csrf_token %}
-      
+  <head>
+    <link rel="stylesheet" href="{% static '/user/registration/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      function load() {
+        var username_input = document.getElementById("id_username");
+        username_input.placeholder = "Username";
+        username_input.classList.add("lab-input");
+        var email_input = document.getElementById("id_email");
+        email_input.placeholder = "Email";
+        email_input.classList.add("lab-input");
+        var password_input1 = document.getElementById("id_password1");
+        password_input1.placeholder = "Password";
+        password_input1.classList.add("lab-input");
+        var password_input2 = document.getElementById("id_password2");
+        password_input2.placeholder = "Password confirmation";
+        password_input2.classList.add("lab-input");
+      }
+    </script>
+  </head>
 
-      	{% if user_form.errors %}
-      	<p>There are errors in this form!</p>
-      	{% endif %}
-      
-     	{% for field in user_form %}
-        <p>
-      	    {{ field.label_tag }}<br>
-     	    {{ field }}
-      	    <!-- {% if field.help_text %} -->
-     	    <!-- <small style="color: grey">{{ field.help_text }}</small> -->
-          	<!-- {% endif %} -->
-          	{% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-          	{% endfor %}
-        </p>
-      	{% endfor %}
-
-      	<input type="submit" value="Register">
-      	<a href="{% url 'login'%}">Login</a> 
-      	<a href="/">Home</a>
+  <body onload="load()">
+    <h1>Register User</h1>
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <div class="container-fluid" align="center">
+        {% for field in user_form %}
+        <div class="row">
+          <div class="col col-margin">
+            {{ field }}
+          </div>
+        </div>
+        <!-- {% if field.help_text %} -->
+        <!-- <small style="color: grey">{{ field.help_text }}</small> -->
+        <!-- {% endif %} -->
+        {% for error in field.errors %}
+        <div class="row">
+          <div class="col col-margin">
+            <span>{{ error }}</span>
+          </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% if user_form.errors %}
+        <div class="row">
+          <div class="col col-margin">
+            <span>There are errors in this form!</span>
+          </div>
+        </div>
+        {% endif %}
+        <div class="row">
+          <div class="col col-margin">
+            <input class="lab-btn" type="submit" value="Register">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-margin" align="right">
+            <a href="{% url 'login'%}">Login</a> 
+          </div>
+          <div class="col col-margin" align="left">
+            <a href="/">Home</a>
+          </div>
+        </div>
+      </div>
     </form>
   </body>
 </html>

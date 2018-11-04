@@ -2,25 +2,31 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from news_feed.forms import PostForm #Custom register form
-from news_feed.models import Post
+from django.conf import settings
+from math import floor
+import tweepy
+from news_feed.forms import BookmarkForm #Custom register form
+from news_feed.models import Bookmark
+from user.models import Profile
 
 @login_required
-def create_post(request):
-	if request.method == 'POST':
-		form = PostForm(request.POST)
+def home_tweets(request):
+	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
+	auth.set_access_token(getattr(settings, 'ACCESS_TOKEN'), getattr(settings, 'ACCESS_TOKEN_SECRET'))
 
-		if form.is_valid():
-			#Saves the object without sending it to the database
-			aux = form.save(commit=False) 
-			#Checks there is an authenticated user
-			if request.user.is_authenticated:
-				aux.person = request.user
-			aux.save()
-			return redirect('home')
-	else:
-		form = PostForm()
-	return render(request, 'feed/new_post.html', {'form': form})
+	api = tweepy.API(auth)
+	
+	profile = Profile.objects.get(id=request.user.id)
+	interests = profile.interests.all()
+	args = list()
 
+	if interests.exists():
+		for interest in interests:
+			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=1).items(floor(20/interests.count())))
 
+	return render(request,'feed/home_tweets.html',{'args':args})
+
+@login_required
+def search_bookmarks(request, hashtag):
+	bookmark_list = Bookmark.objects.filter(hashtags__text == hashtag).distinct()
+	return bookmark_list

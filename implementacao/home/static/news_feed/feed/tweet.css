@@ -1,0 +1,10 @@
+#tweet{
+    width : 600;
+    margin-left: 28%;
+    border-style: solid;
+    border-width:2px;
+    border-color: white;
+}
+#interval{
+    height: 20px;    
+}

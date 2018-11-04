@@ -33,7 +33,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = (
-            'interests',
             'affiliation',
             'facebook',
             'linked_in',

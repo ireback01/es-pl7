@@ -5,7 +5,6 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user         = models.OneToOneField(User, on_delete=models.CASCADE)
-    interests    = models.CharField(max_length=100, blank=True)
     affiliation  = models.CharField(max_length=30, blank=True)
     facebook     = models.URLField(max_length=256,blank=True)
     linked_in    = models.URLField(max_length=256,blank=True)
@@ -16,7 +15,3 @@ class Profile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
