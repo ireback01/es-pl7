@@ -4,13 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from user.forms import SignUp,ProfileForm,EditProfileForm
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from .models import Profile
 from django.contrib.auth.models import User
 from news_feed.models import Hashtag
 from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
+from django.conf import settings
+
+import tweepy
+
 
 @login_required
 def profile(request,username):
@@ -125,3 +127,18 @@ def create_bookmark(request):
 def index_bookmarks(request):
 	bookmark_list = request.user.profile.bookmarks.all()
 	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list})
+
+
+
+@login_required
+def login_twitter(request):
+	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'),'localhost:8000')
+
+	try:
+		redirect_url = auth.get_authorization_url()
+	except tweepy.TweepError:
+		print('Error! Failed to get request token.')
+
+		#session.set('request_token', auth.request_token)
+
+		verifier = request.GET.get('oauth_verifier')
