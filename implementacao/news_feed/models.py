@@ -20,23 +20,8 @@ class Bookmark(models.Model):
 
 class Hashtag(models.Model):
     text = models.CharField(max_length=100)
-    user = models.ManyToManyField(Profile, related_name="interests")    
-    bookmarks = models.ManyToManyField(Bookmark, related_name="hashtags")
+    user = models.ManyToManyField(Profile, related_name="interests", blank=True)    
+    bookmarks = models.ManyToManyField(Bookmark, related_name="hashtags", blank=True)
 
     def __str__(self):
-        return self.text + " "
-
-class Post(models.Model):
-    title = models.CharField(max_length=100)
-    link = models.URLField()
-    pubdate = models.DateTimeField(auto_now_add=True)
-    hashtags = models.ManyToManyField(Hashtag)
-    person = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-
-    # Metadata
-    class Meta: 
-        ordering = ["-pubdate"]
-        permissions = (("can_change_status", "Can see and change articles"),)
-
-    def __str__(self):
-        return self.text
+        return "#" + self.text

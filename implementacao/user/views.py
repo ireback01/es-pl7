@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from .models import Profile
 from django.contrib.auth.models import User
 from news_feed.models import Hashtag
-from news_feed.forms import BookmarkForm #Custom register form
+from news_feed.forms import BookmarkForm, HashtagForm #Custom register form
 from news_feed.models import Bookmark
 
 @login_required
@@ -19,7 +19,7 @@ def profile(request,username):
 	string = ""
 	if(request.user.profile.interests != None):
 		for interest in request.user.profile.interests.all():
-			string = string + str(interest)
+			string = string + str(interest) + " "
 	arg = {
 		'user' : user,
 		'profile' : profile,
@@ -61,22 +61,23 @@ def register(request):
 def edit_profile(request):
 	#Processes 2 forms.. 1 Auth user and 1 custom model (profile)
 	profile = Profile.objects.get(id=request.user.id)
+	form = HashtagForm()
 	if request.method == 'POST':
 		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 		user_form = EditProfileForm(request.POST, instance=request.user)
 		#return render_to_response('profile/debug.html', {'profile_form': profile_form})
 		if profile_form.is_valid() and user_form.is_valid():
-			request.user.profile.interests.clear()
-			interests_string = profile_form.cleaned_data['interests'].strip()
-			if not interests_string == "":
-				interests = interests_string.split(" ")
-				for interest in interests:
-					try:
-					    bk = Hashtag.objects.get(text=interest)   
-					except Hashtag.DoesNotExist:
-					    bk = Hashtag.objects.create(text=interest)
-					request.user.profile.interests.add(bk)
-					request.user.save
+			#request.user.profile.interests.clear()
+			#interests_string = profile_form.cleaned_data['interests'].strip()
+			#if not interests_string == "":
+			#	interests = interests_string.split(" ")
+			#	for interest in interests:
+			#		try:
+			#		    bk = Hashtag.objects.get(text=interest)   
+			#		except Hashtag.DoesNotExist:
+			#		    bk = Hashtag.objects.create(text=interest)
+			#		request.user.profile.interests.add(bk)
+			#		request.user.save
 			profile_form.save()
 			user_form.save()
 			return redirect('/')
@@ -84,19 +85,21 @@ def edit_profile(request):
 			return render(request, 'profile/edit_profile.html', {
 			'user_form':user_form,
 			'profile_form':profile_form,
-			'profile':profile
+			'profile':profile,
+			'form':form,
 			} ) 
 	else:
 		string = ""
 		if(request.user.profile.interests != None):
 			for interest in request.user.profile.interests.all():
-				string = string + str(interest)
+				string = string + str(interest) + " "
 		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
 		user_form = EditProfileForm(instance = request.user)
 		return render(request, 'profile/edit_profile.html', {
 			'user_form':user_form,
 			'profile_form':profile_form,
-			'profile':profile
+			'profile':profile,
+			'form':form,
 			} )
 
 @login_required
@@ -125,3 +128,24 @@ def create_bookmark(request):
 def index_bookmarks(request):
 	bookmark_list = request.user.profile.bookmarks.all()
 	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list})
+
+@login_required
+def new_interest_user(request):
+	if request.method == 'POST':
+		form = HashtagForm(request.POST)
+		if form.is_valid():
+			#Saves the object without sending it to the database
+			aux = form.save(commit=False)
+			print(aux.text + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+			try:
+			    bk = Hashtag.objects.get(text=aux.text)   
+			except Hashtag.DoesNotExist:
+			    bk = Hashtag.objects.create(text=aux.text)
+			#Checks there is an authenticated user
+			if request.user.is_authenticated:
+				request.user.profile.interests.add(bk)
+				request.user.profile.save
+			return redirect('home')
+	else:
+		form = HashtagForm()
+	return render(request, 'user/interests_form.html', {'form': form})

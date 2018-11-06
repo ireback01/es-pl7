@@ -44,6 +44,7 @@
             <div class="row">
                 <div class="col col-margin">
                     Interests: {{ profile_form.interests }}
+                    {% include 'user/interests_form.html' with form=form %}
                 </div>
             </div>
             <div class="row">

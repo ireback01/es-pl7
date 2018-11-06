@@ -3,6 +3,7 @@ from . import views
 from django.conf.urls import url, include
 
 urlpatterns = [
+	path('profile/new_interest', views.new_interest_user, name="new_interest_user"),
     path('register/',views.register,name="register"),
     path('profile/(?P<username>[a-zA-Z0-9]+)$',views.profile,
     name="profile"),
