@@ -10,12 +10,13 @@ from news_feed.models import Hashtag
 from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
 from django.conf import settings
+from tweepy.auth import OAuthHandler
 
 import tweepy
 
 
 @login_required
-def profile(request,username):
+def profile(request, username):
 	user = User.objects.get(username=username)
 	profile = Profile.objects.get(id=user.id)
 	string = ""
@@ -27,7 +28,7 @@ def profile(request,username):
 		'profile' : profile,
 		'interests' : string,
 	}
-	return render(request,'profile/profile.html',arg)
+	return render(request, 'profile/profile.html', arg)
 
 
 @login_required
@@ -74,11 +75,11 @@ def edit_profile(request):
 				interests = interests_string.split(" ")
 				for interest in interests:
 					try:
-					    bk = Hashtag.objects.get(text=interest)   
+						bk = Hashtag.objects.get(text=interest)
 					except Hashtag.DoesNotExist:
-					    bk = Hashtag.objects.create(text=interest)
+						bk = Hashtag.objects.create(text=interest)
 					request.user.profile.interests.add(bk)
-					request.user.save
+					request.user.save()
 			profile_form.save()
 			user_form.save()
 			return redirect('/')
@@ -132,13 +133,53 @@ def index_bookmarks(request):
 
 @login_required
 def login_twitter(request):
-	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'),'localhost:8000')
+	auth = OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
 
 	try:
 		redirect_url = auth.get_authorization_url()
 	except tweepy.TweepError:
 		print('Error! Failed to get request token.')
 
-		#session.set('request_token', auth.request_token)
+	return HttpResponseRedirect(redirect_url)
 
-		verifier = request.GET.get('oauth_verifier')
+
+@login_required
+def callback_url(request):
+	auth = OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
+	verifier = request.GET.get('oauth_verifier')
+
+	auth.request_token = {
+		'oauth_token': request.GET.get('oauth_token'),
+		'oauth_token_secret': request.GET.get('oauth_token_verifier')
+	}
+	try:
+		auth.get_access_token(verifier)
+
+		# Saves on database the User access Tokens
+		key = auth.access_token
+		secret = auth.access_token_secret
+		request.user.profile.tweet_access_token = key
+		request.user.profile.tweet_access_token_secret = secret
+		request.user.profile.save()
+
+		# Set access to user
+		auth.set_access_token(key, secret)
+
+	except tweepy.TweepError as e:
+		print(e)
+
+	return profile(request, request.user.username)
+
+@login_required
+def post_tweet(request):
+	# twitter user credentials
+	access_token = request.user.profile.tweet_access_token
+	access_token_secret = request.user.profile.tweet_access_token_secret
+
+	auth = OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
+	auth.set_access_token(access_token, access_token_secret)
+
+	api = tweepy.API(auth)
+
+	api.update_status('Hello World!')
+	return profile(request, request.user.username)
