@@ -24,4 +24,4 @@ class Hashtag(models.Model):
     bookmarks = models.ManyToManyField(Bookmark, related_name="hashtags", blank=True)
 
     def __str__(self):
-        return "#" + self.text
+        return self.text
