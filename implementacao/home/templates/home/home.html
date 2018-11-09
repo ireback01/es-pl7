@@ -47,7 +47,12 @@ $(document).ready(function() {
                             <a href=""><img src="{% static 'home/home/icons/notification.png' %}" class="icon"></a>
                         </div>
                         <div class="col-1 my-auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_tweet">
+                              Launch demo modal
+                            </button>
+                        </div>
+                         <div class="col-1 my-auto">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_bookmark">
                               Launch demo modal
                             </button>
                         </div>
@@ -70,27 +75,56 @@ $(document).ready(function() {
             {% endblock %}
         </main>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Tweet Modal -->
+<div class="modal fade" id="post_tweet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Tweet</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
-          {% csrf_token %}
-            {% for field in form %}
 
-                {{ tweet_form.as_table }}
+          {% if request.user.profile.tweet_access_token != "" %}
+              <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
+                    {% csrf_token %}
+                    <div>Text : {{ tweet_form.text }}  {{ tweet_form.text.help_text }}</div>
+
+                    <div>Image : {{ tweet_form.image }}  </div>
+                     <button type="submit">Post</button>
+              </form>
+
+          {% else %}
+                Twitter Account Association Needed
+          {% endif %}
 
 
-           {% endfor %}
-          <button type="submit">Submit</button>
-        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bookmark Modal --> 
+<div class="modal fade" id="post_bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Tweet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form enctype='multipart/form-data' id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
+                {% csrf_token %}
+                   < test >
+                 <button type="submit">Post</button>
+          </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -14,4 +14,3 @@ urlpatterns = [
     path('callback_url/', views.callback_url, name='callback'),
     path('post_tweet/', views.post_tweet, name='post_tweet'),
 ]
-

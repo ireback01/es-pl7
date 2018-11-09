@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from user.forms import SignUp,ProfileForm,EditProfileForm
+from user.forms import SignUp, ProfileForm, EditProfileForm, TweetForm
 from django.http import HttpResponseRedirect
 from .models import Profile
 from django.contrib.auth.models import User
@@ -19,14 +19,16 @@ import tweepy
 def profile(request, username):
 	user = User.objects.get(username=username)
 	profile = Profile.objects.get(id=user.id)
+	tweet_form = TweetForm()
 	string = ""
 	if(request.user.profile.interests != None):
 		for interest in request.user.profile.interests.all():
 			string = string + str(interest)
 	arg = {
-		'user' : user,
-		'profile' : profile,
-		'interests' : string,
+		'user': user,
+		'profile': profile,
+		'interests': string,
+		'tweet_form': tweet_form,
 	}
 	return render(request, 'profile/profile.html', arg)
 
@@ -64,10 +66,16 @@ def register(request):
 def edit_profile(request):
 	#Processes 2 forms.. 1 Auth user and 1 custom model (profile)
 	profile = Profile.objects.get(id=request.user.id)
+	tweet_form = TweetForm()
 	if request.method == 'POST':
 		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 		user_form = EditProfileForm(request.POST, instance=request.user)
-		#return render_to_response('profile/debug.html', {'profile_form': profile_form})
+		args = {
+			'user_form': user_form,
+			'profile_form': profile_form,
+			'profile': profile,
+			'tweet_form': tweet_form,
+		}
 		if profile_form.is_valid() and user_form.is_valid():
 			request.user.profile.interests.clear()
 			interests_string = profile_form.cleaned_data['interests'].strip()
@@ -84,29 +92,27 @@ def edit_profile(request):
 			user_form.save()
 			return redirect('/')
 		else:
-			return render(request, 'profile/edit_profile.html', {
-			'user_form':user_form,
-			'profile_form':profile_form,
-			'profile':profile
-			} ) 
+			return render(request, 'profile/edit_profile.html', args)
 	else:
 		string = ""
-		if(request.user.profile.interests != None):
+		if request.user.profile.interests is not None:
 			for interest in request.user.profile.interests.all():
 				string = string + str(interest)
 		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
 		user_form = EditProfileForm(instance = request.user)
-		return render(request, 'profile/edit_profile.html', {
-			'user_form':user_form,
-			'profile_form':profile_form,
-			'profile':profile
-			} )
+		args = {
+			'user_form': user_form,
+			'profile_form': profile_form,
+			'profile': profile,
+			'tweet_form': tweet_form,
+		}
+		return render(request, 'profile/edit_profile.html', args)
 
 @login_required
 def create_bookmark(request):
+	tweet_form = TweetForm()
 	if request.method == 'POST':
 		form = BookmarkForm(request.POST)
-
 		if form.is_valid():
 			aux = form.save()
 			interests_string = form.cleaned_data['interests']
@@ -122,12 +128,13 @@ def create_bookmark(request):
 			return redirect('home')
 	else:
 		form = BookmarkForm()
-	return render(request, 'profile/new_bookmark.html', {'form': form})
+	return render(request, 'profile/new_bookmark.html', {'form': form, 'tweet_form': tweet_form})
 
 @login_required
 def index_bookmarks(request):
+	tweet_form = TweetForm()
 	bookmark_list = request.user.profile.bookmarks.all()
-	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list})
+	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list, 'tweet_form': tweet_form})
 
 
 
@@ -172,6 +179,9 @@ def callback_url(request):
 
 @login_required
 def post_tweet(request):
+
+	tweet_form = TweetForm(request.POST)
+
 	# twitter user credentials
 	access_token = request.user.profile.tweet_access_token
 	access_token_secret = request.user.profile.tweet_access_token_secret
@@ -181,7 +191,7 @@ def post_tweet(request):
 
 	api = tweepy.API(auth)
 
-	api.update_status('Hello World!')
+	api.update_status(tweet_form.text)
 
 	return
 

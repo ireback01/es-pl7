@@ -52,11 +52,13 @@ class ProfileForm(forms.ModelForm):
 
 
 class TweetForm(forms.Form):
-    text = forms.CharField(max_length=150, help_text='Write your tweet with max of 150chars', required=True)
+    text = forms.CharField(max_length=150, help_text='Max: 150chars', required=True)
     image = forms.ImageField(required=False)
 
     class Meta:
-        fields = ("text", "image")
+        fields = ("text",
+                  "image",
+                  )
 
     def clean(self):
         cleaned_data = super(TweetForm, self).clean()
