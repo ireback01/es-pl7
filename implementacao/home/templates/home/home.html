@@ -2,8 +2,29 @@
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'home/home/home.css' %}">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#p_tweet').submit(function() { // catch the form's submit event
+        $.ajax({ // create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function(response) { // on success..
+                $('#success_div').html(response); // update the DIV
+            },
+            error: function(e, x, r) { // on error..
+                $('#error_div').html(e); // update the DIV
+            }
+        });
+        return false;
+    });
+});
+</script>
+
     </head>
     <body>
         <header class="container-fluid header" style="margin-bottom: 40px;">
@@ -21,11 +42,14 @@
                             <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
                             {% endif %}
                         </div>
+
                         <div class="col-1 my-auto">
                             <a href=""><img src="{% static 'home/home/icons/notification.png' %}" class="icon"></a>
                         </div>
                         <div class="col-1 my-auto">
-                            <a href="{% url 'edit_profile' %}"><img src="{% static 'home/home/icons/settings.png' %}" class="icon"></a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                              Launch demo modal
+                            </button>
                         </div>
                         <div class="col-1 my-auto">
                             <a value="logout" href="/logout"><button class="lab-btn-dark">Logout</button></a>
@@ -33,16 +57,8 @@
                     </div>
                     
                 </div>
-                
-                <!--
-                <div class="col-3 my-auto">
-                    <input type="search" placeholder="Search..." class="form-control">
-                </div>
-                <div class="col-3 my-auto">
-                    <span>Welcome <strong>{{ user.username }}</strong></span>
-                </div>
-            -->
-                
+
+
             </div>
             {% endif %}           
         </header>
@@ -53,5 +69,34 @@
             
             {% endblock %}
         </main>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
+          {% csrf_token %}
+            {% for field in form %}
+
+                {{ tweet_form.as_table }}
+
+
+           {% endfor %}
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     </body>
 </html>

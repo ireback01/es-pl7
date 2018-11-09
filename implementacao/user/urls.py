@@ -13,5 +13,5 @@ urlpatterns = [
     path('login_twitter', views.login_twitter, name='login_twitter'),
     path('callback_url/', views.callback_url, name='callback'),
     path('post_tweet/', views.post_tweet, name='post_tweet'),
-
 ]
+

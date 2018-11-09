@@ -182,4 +182,6 @@ def post_tweet(request):
 	api = tweepy.API(auth)
 
 	api.update_status('Hello World!')
-	return profile(request, request.user.username)
+
+	return
+

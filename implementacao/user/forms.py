@@ -49,3 +49,17 @@ class ProfileForm(forms.ModelForm):
             'about_me',
             'tweet_ammount',
             )
+
+
+class TweetForm(forms.Form):
+    text = forms.CharField(max_length=150, help_text='Write your tweet with max of 150chars', required=True)
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        fields = ("text", "image")
+
+    def clean(self):
+        cleaned_data = super(TweetForm, self).clean()
+        text = cleaned_data.get('text')
+        if not text:
+            raise forms.ValidationError('You have to write something!')
