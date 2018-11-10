@@ -10,6 +10,7 @@ from user.forms import TweetForm
 @login_required
 def home_tweets(request):
 	tweet_form = TweetForm()
+	bookmark_form = BookmarkForm()
 
 
 	auth = tweepy.OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
@@ -24,7 +25,7 @@ def home_tweets(request):
 	if interests.exists():
 		for interest in interests:
 			args.append(tweepy.Cursor(api.search,lang='en', q=str(interest)+" -filter:retweets", rpp=1, tweet_mode='extended').items(profile.tweet_ammount))
-	return render(request,'feed/home_tweets.html',{'args': args, 'tweet_form': tweet_form})
+	return render(request,'feed/home_tweets.html',{'args': args, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
 
 @login_required
 def search_bookmarks(request, hashtag):

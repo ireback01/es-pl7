@@ -20,6 +20,7 @@ def profile(request, username):
 	user = User.objects.get(username=username)
 	profile = Profile.objects.get(id=user.id)
 	tweet_form = TweetForm()
+	bookmark_form = BookmarkForm()
 	string = ""
 	if(request.user.profile.interests != None):
 		for interest in request.user.profile.interests.all():
@@ -29,6 +30,7 @@ def profile(request, username):
 		'profile': profile,
 		'interests': string,
 		'tweet_form': tweet_form,
+		'bookmark_form': bookmark_form,
 	}
 	return render(request, 'profile/profile.html', arg)
 
@@ -67,6 +69,7 @@ def edit_profile(request):
 	#Processes 2 forms.. 1 Auth user and 1 custom model (profile)
 	profile = Profile.objects.get(id=request.user.id)
 	tweet_form = TweetForm()
+	bookmark_form = BookmarkForm()
 	if request.method == 'POST':
 		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 		user_form = EditProfileForm(request.POST, instance=request.user)
@@ -75,6 +78,7 @@ def edit_profile(request):
 			'profile_form': profile_form,
 			'profile': profile,
 			'tweet_form': tweet_form,
+			'bookmark_form' : bookmark_form,
 		}
 		if profile_form.is_valid() and user_form.is_valid():
 			request.user.profile.interests.clear()
@@ -105,12 +109,12 @@ def edit_profile(request):
 			'profile_form': profile_form,
 			'profile': profile,
 			'tweet_form': tweet_form,
+			'bookmark_form': bookmark_form,
 		}
 		return render(request, 'profile/edit_profile.html', args)
 
 @login_required
 def create_bookmark(request):
-	tweet_form = TweetForm()
 	if request.method == 'POST':
 		form = BookmarkForm(request.POST)
 		if form.is_valid():
@@ -125,16 +129,17 @@ def create_bookmark(request):
 			aux.user = request.user.profile
 			aux.hashtags.add(bk)
 			aux.save()
-			return redirect('home')
-	else:
-		form = BookmarkForm()
-	return render(request, 'profile/new_bookmark.html', {'form': form, 'tweet_form': tweet_form})
+
+	bookmark_form = BookmarkForm()
+	tweet_form = TweetForm()
+	return render(request, 'feed/home_tweets.html', {'bookmark_form': bookmark_form, 'tweet_form': tweet_form})
 
 @login_required
 def index_bookmarks(request):
 	tweet_form = TweetForm()
 	bookmark_list = request.user.profile.bookmarks.all()
-	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list, 'tweet_form': tweet_form})
+	bookmark_form = BookmarkForm()
+	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
 
 
 
