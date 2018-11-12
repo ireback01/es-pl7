@@ -56,8 +56,8 @@ class TweetForm(forms.Form):
     image = forms.ImageField(required=False)
 
     class Meta:
-        fields = ("text",
-                  "image",
+        fields = ('text',
+                  'image',
                   )
 
     def clean(self):

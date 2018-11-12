@@ -11,6 +11,7 @@ from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
 from django.conf import settings
 from tweepy.auth import OAuthHandler
+import os
 
 import tweepy
 
@@ -185,18 +186,29 @@ def callback_url(request):
 @login_required
 def post_tweet(request):
 
-	tweet_form = TweetForm(request.POST)
+	if request.method == 'POST':
+		tweet_form = TweetForm(request.POST, request.FILES)
+		if tweet_form.is_valid():
+			# twitter user credentials
+			access_token = request.user.profile.tweet_access_token
+			access_token_secret = request.user.profile.tweet_access_token_secret
 
-	# twitter user credentials
-	access_token = request.user.profile.tweet_access_token
-	access_token_secret = request.user.profile.tweet_access_token_secret
+			auth = OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
+			auth.set_access_token(access_token, access_token_secret)
 
-	auth = OAuthHandler(getattr(settings, 'CONSUMER_KEY'), getattr(settings, 'CONSUMER_SECRET'))
-	auth.set_access_token(access_token, access_token_secret)
+			api = tweepy.API(auth)
 
-	api = tweepy.API(auth)
+			if tweet_form.cleaned_data.get('image') is not None:
+				media = request.FILES['image']
+				filename = "images/temp/" + media.name
+				with open(filename, 'wb+') as image:
+					for chunk in media.chunks():
+						image.write(chunk)
+				api.update_with_media(filename, status=tweet_form.cleaned_data.get('text'))
+				os.remove(filename)
 
-	api.update_status(tweet_form.text)
+			else:
+				api.update_status(tweet_form.cleaned_data.get('text'))
 
-	return
+	return redirect('/')
 
