@@ -15,7 +15,7 @@
                 <div class="col-10 my-auto">
                     <div class="row" align="right">
                         <div class="col my-auto">
-                            {% if profile.image != '' %}
+                            {% if request.user.profile.image != '' %}
                             <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}" width="24"></a>
                             {% else %}
                             <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
