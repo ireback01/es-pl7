@@ -48,6 +48,11 @@
             </div>
             <div class="row">
                 <div class="col col-margin">
+                    Subreddits: {{ profile_form.subreddits }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
                     Affiliation: {{ profile_form.affiliation }}
                 </div>
             </div>
@@ -59,6 +64,15 @@
             <div class="row">
                 <div class="col col-margin">
                     Linked In: {{ profile_form.linked_in }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    {% if not user.profile.reddit_token %}
+                    Reddit: <a href="/reddit_auth">Login</a>
+                    {% else %}
+                    Reddit: <a href="/reset_reddit">Logout</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

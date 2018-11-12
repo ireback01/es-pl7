@@ -7,30 +7,30 @@
     </head>
     <body>
         <div class="container">
-            {% for tweets in args %}
-                {% for tweet in tweets %}
+            {% for posts in args %}
+                {% for post in posts %}
                 <div class="row post-frame">
                     <div class="col">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-1">
-                                <a href="{{ tweet.user.url }}" target="_blank"><img src="{{ tweet.user.profile_image_url }}" class="avatar-frame"></a>
+                                <a href="https://www.reddit.com/user/{{ post.author.name }}" target="_blank"><img src="{{ post.author.icon_img }}" class="avatar-frame"></a>
                             </div>
-                        </div>
-                        <div class="row" style="margin-bottom: 15px;">
-                            <div class="col">
-                                <span>{{ tweet.full_text }}</span>
+                            <div class="col-11 my-auto">
+                                <h4>{{ post.title }}</h4>
                             </div>
                         </div>
                         <div class="row">
-                            {% for image in tweet.extended_entities.media %}
-                            <div class="col" align="center">
-                                <img src="{{ image.media_url }}" class="post-image">
+                            <div class="col">
+                                {% if post.is_self %}
+                                {{ post.selftext }}
+                                {% else %}
+                                <img src="{{ post.url }}" class="post-image">
+                                {% endif %}
                             </div>
-                            {% endfor %}
                         </div>
                         <div class="row">
                             <div class="col" align="right">
-                                <a href="https://twitter.com/{{ tweet.user.name }}/status/{{ tweet.id_str }}" target="_blank">Link</a>
+                                <a href="{{ post.url }}" target="_blank">Link</a>
                             </div>
                         </div>
                     </div>

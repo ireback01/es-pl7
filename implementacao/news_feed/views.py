@@ -8,6 +8,8 @@ import tweepy
 from news_feed.forms import BookmarkForm #Custom register form
 from news_feed.models import Bookmark
 from user.models import Profile
+import praw
+import pdb
 
 @login_required
 def home_tweets(request):
@@ -22,9 +24,28 @@ def home_tweets(request):
 
 	if interests.exists():
 		for interest in interests:
-			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=1).items(floor(20/interests.count())))
+			args.append(tweepy.Cursor(api.search, q=str(interest), rpp=1, tweet_mode='extended').items(floor(20/interests.count())))
 
 	return render(request,'feed/home_tweets.html',{'args':args})
+
+@login_required
+def home_reddit(request):
+	args = list()
+	if(request.user.profile.reddit_token): # if redditor token is assigned to user profile (i.e. user is logged in reddit)
+		reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', refresh_token=request.user.profile.reddit_token)
+		subreddits = list(reddit.user.subreddits())
+		for subreddit in subreddits:
+			posts = subreddit.hot(limit=5)
+			args.append(posts)
+	else:
+		reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc')
+		subreddits = request.user.profile.subreddits
+		if(subreddits is not ''):
+			subreddits = subreddits.split(" ")
+			for subreddit in subreddits:
+				posts = reddit.subreddit(subreddit).hot(limit=5)
+				args.append(posts)
+	return render(request, 'feed/home_reddit.html', {'args': args})
 
 @login_required
 def search_bookmarks(request, hashtag):
