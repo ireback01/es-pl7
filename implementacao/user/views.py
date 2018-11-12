@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from news_feed.models import Hashtag
 from news_feed.forms import BookmarkForm, HashtagForm #Custom register form
 from news_feed.models import Bookmark
+import praw
 
 @login_required
 def profile(request,username):
@@ -85,6 +86,7 @@ def edit_profile(request):
 			'user_form':user_form,
 			'profile_form':profile_form,
 			'profile':profile,
+			'user': request.user
 			} ) 
 	else:
 		string = ""
@@ -97,6 +99,7 @@ def edit_profile(request):
 			'user_form':user_form,
 			'profile_form':profile_form,
 			'profile':profile,
+			'user': request.user
 			} )
 
 @login_required
@@ -125,3 +128,25 @@ def create_bookmark(request):
 def index_bookmarks(request):
 	bookmark_list = request.user.profile.bookmarks.all()
 	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list})
+
+@login_required
+def reddit_auth(request):
+	reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', redirect_uri='http://127.0.0.1:8000/store_reddit_token')
+	url = reddit.auth.url(['identity', 'mysubreddits', 'read'], '...', 'permanent')
+	return HttpResponseRedirect(url)
+
+@login_required
+def store_reddit_token(request):
+	reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', redirect_uri='http://127.0.0.1:8000/store_reddit_token')
+	refresh_token = reddit.auth.authorize(request.GET.get('code'))
+	profile = request.user.profile
+	profile.reddit_token = refresh_token
+	profile.save(update_fields=["reddit_token"])
+	return redirect('/')
+
+@login_required
+def reset_reddit(request):
+	profile = request.user.profile
+	profile.reddit_token = ''
+	profile.save(update_fields=["reddit_token"])
+	return redirect('/')

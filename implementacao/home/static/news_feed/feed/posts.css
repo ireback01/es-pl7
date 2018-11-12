@@ -1,0 +1,16 @@
+.avatar-frame {
+	border-radius: 50%;
+	width: 64px;
+}
+.post-frame {
+	margin-top: 15px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #BBFABA !important;
+
+}
+.post-image {
+	max-width: 256px;
+}

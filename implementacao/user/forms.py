@@ -45,6 +45,7 @@ class ProfileForm(forms.ModelForm):
     linked_in =forms.URLField(required=False,help_text='Insert Linked In url')
     image = forms.ImageField(required=False)
     orcid = forms.CharField(max_length=19, required=True, validators=[validate_orcid])
+    subreddits = forms.CharField(max_length=512, required=False)
 
     class Meta:
         model = Profile
@@ -54,4 +55,5 @@ class ProfileForm(forms.ModelForm):
             'linked_in',
             'image',
             'orcid',
+            'subreddits',
             )
