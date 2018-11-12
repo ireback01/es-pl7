@@ -192,3 +192,8 @@ GitHub.sublime-settings
 
 
 # End of https://www.gitignore.io/api/linux,django,python,sublimetext,visualstudiocode
+implementacao/\.idea/implementacao\.iml
+
+implementacao/\.idea/misc\.xml
+
+implementacao/\.idea/workspace\.xml

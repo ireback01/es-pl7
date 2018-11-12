@@ -39,21 +39,46 @@ def validate_orcid(value):
             )
 
 class ProfileForm(forms.ModelForm):
-    interests = forms.CharField(max_length=256, required=False)
-    affiliation = forms.CharField(max_length=30, required=False)
-    facebook = forms.URLField(required=False,help_text='Insert Facebook url')
-    linked_in =forms.URLField(required=False,help_text='Insert Linked In url')
-    image = forms.ImageField(required=False)
-    orcid = forms.CharField(max_length=19, required=True, validators=[validate_orcid])
+    CHOICES = [('Male', 'male'),
+               ('Female', 'female')]
+
+    interests    = forms.CharField(max_length=256, required=False, help_text='*')
     subreddits = forms.CharField(max_length=512, required=False)
+    affiliation  = forms.CharField(max_length=30, required=True, help_text='*')
+    linked_in    = forms.URLField(required=False, help_text='Insert Linked In url')
+    image        = forms.ImageField(required=False)
+    orcid        = forms.CharField(max_length=19, required=True, help_text='*')
+    birth_date   = forms.DateField(required=False,  help_text='Format: yyyy-mm-dd')
+    gender       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),required=False)
+    about_me     = forms.CharField(max_length=300, help_text='Max: 300 letters', required=False)
+    tweet_ammount= forms.IntegerField(required=True, help_text='* Ammount of Tweets per Interest: 1-20')
 
     class Meta:
         model = Profile
         fields = (
             'affiliation',
-            'facebook',
             'linked_in',
             'image',
             'orcid',
             'subreddits',
+            'birth_date',
+            'gender',
+            'about_me',
+            'tweet_ammount',
             )
+
+
+class TweetForm(forms.Form):
+    text = forms.CharField(max_length=150, help_text='Max: 150chars', required=True)
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        fields = ('text',
+                  'image',
+                  )
+
+    def clean(self):
+        cleaned_data = super(TweetForm, self).clean()
+        text = cleaned_data.get('text')
+        if not text:
+            raise forms.ValidationError('You have to write something!')

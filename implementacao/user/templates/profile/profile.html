@@ -57,14 +57,36 @@
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Facebook: {{ user.profile.facebook }}
+                   Linked In: <a href="{{ user.profile.linked_in }}">Profile</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-margin">
-                    Linked In: {{ user.profile.linked_in }}
+                    Gender: {{ user.profile.gender }}
                 </div>
             </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Birth Date: {{ user.profile.birth_date }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    About Me: {{ user.profile.about_me }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-margin">
+                    Tweet Ammount: {{ user.profile.tweet_ammount }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-margin">
+                        Login: <a href="{% url 'login_twitter' %}">Click Me!</a>
+                </div>
+            </div>
+
             <div class="row"> 
                 <div class="col col-margin"> 
                     {% if request.user.username == user.username %} 
