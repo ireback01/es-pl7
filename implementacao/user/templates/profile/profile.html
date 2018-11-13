@@ -77,20 +77,20 @@
 
                 <div class="row">
                     <div class="col col-margin">
-                       Linked In: <a href="{{ user.profile.linked_in }}">{{ user.profile.linked_in}}</a>
+                       Linked In: <a href="{{ user.profile.linked_in }}" id="changeColor">{{ user.profile.linked_in}}</a>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col col-margin">
-                       Reddit: <a href="{{ user.profile.reddit_account }}">{{ user.profile.reddit_account }}</a>
+                       Reddit: <a href="{{ user.profile.reddit_account }}" id="changeColor">{{ user.profile.reddit_account }}</a>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col col-margin">
                         {% if user.profile.tweet_access_token %}
-                           Twitter: <a href="{{ user.profile.twitter_account }}">{{ user.profile.twitter_account }}</a>
+                           Twitter: <a href="{{ user.profile.twitter_account }}" id="changeColor">{{ user.profile.twitter_account }}</a>
                         {% else %}
                             Twitter:
                         {% endif %}
@@ -105,8 +105,7 @@
                 <div class="row">
                     <div class="col col-margin">
                         {% if request.user.username == user.username %}
-                            <a href="{% url 'edit_profile' %}" id="edit">Edit profile</a>
-                            <a href="{% url 'edit_profile' %}">Edit profile</a>
+                            <a href="{% url 'edit_profile' %}" id="changeColor">Edit</a>
                         {% endif %}
                     </div>
                 </div>
