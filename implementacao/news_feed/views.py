@@ -8,6 +8,7 @@ from user.models import Profile
 import praw
 import pdb
 from user.forms import TweetForm
+from datetime import datetime
 
 @login_required
 def home_tweets(request):
@@ -22,31 +23,40 @@ def home_tweets(request):
 
 	profile = Profile.objects.get(id=request.user.id)
 	interests = profile.interests.all()
+	args_tweets = list()
 	args = list()
+	merged_list = list()
+	
+	if(profile.show_twitter):
+		if interests.exists():
+			for interest in interests:
+				args_tweets.append(tweepy.Cursor(api.search,lang='en', q=str(interest)+" -filter:retweets", rpp=1, tweet_mode='extended').items(profile.tweet_ammount))
 
-	if interests.exists():
-		for interest in interests:
-			args.append(tweepy.Cursor(api.search,lang='en', q=str(interest)+" -filter:retweets", rpp=1, tweet_mode='extended').items(profile.tweet_ammount))
-	return render(request,'feed/home_tweets.html',{'args': args, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
+		for iterator in args_tweets:
+			merged_list += iterator
 
-@login_required
-def home_reddit(request):
-	args = list()
-	if(request.user.profile.reddit_token): # if redditor token is assigned to user profile (i.e. user is logged in reddit)
-		reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', refresh_token=request.user.profile.reddit_token)
-		subreddits = list(reddit.user.subreddits())
-		for subreddit in subreddits:
-			posts = subreddit.hot(limit=5)
-			args.append(posts)
-	else:
-		reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc')
-		subreddits = request.user.profile.subreddits
-		if(subreddits is not ''):
-			subreddits = subreddits.split(" ")
+	if(profile.show_reddit):
+		if(request.user.profile.reddit_token): # if redditor token is assigned to user profile (i.e. user is logged in reddit)
+			reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', refresh_token=request.user.profile.reddit_token)
+			subreddits = list(reddit.user.subreddits())
 			for subreddit in subreddits:
-				posts = reddit.subreddit(subreddit).hot(limit=5)
+				posts = subreddit.hot(limit=5)
 				args.append(posts)
-	return render(request, 'feed/home_reddit.html', {'args': args})
+		else:
+			reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc')
+			subreddits = request.user.profile.subreddits
+			if(subreddits is not ''):
+				subreddits = subreddits.split(" ")
+				for subreddit in subreddits:
+					posts = reddit.subreddit(subreddit).hot(limit=5)
+					args.append(posts)
+
+		for iterator in args:
+			merged_list += iterator
+
+	merged_list.sort(key=lambda x: getattr(x, 'created_at', datetime.utcfromtimestamp(getattr(x, 'created_utc', 0))), reverse=True)
+
+	return render(request,'feed/home_tweets.html',{'args': merged_list, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
 
 @login_required
 def search_bookmarks(request, hashtag):
