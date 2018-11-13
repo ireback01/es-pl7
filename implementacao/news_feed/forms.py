@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import Bookmark, Hashtag
 
 class BookmarkForm(ModelForm):
-	interests = forms.CharField()
+	interests = forms.CharField(required=False)
 
 	class Meta:
 		model = Bookmark

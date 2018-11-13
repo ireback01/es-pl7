@@ -10,8 +10,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container-fluid" align="center">
-            <div class="row">
+            <div class="left">
                 <div class="col col-margin">
                     {% if profile.image != '' %}
                     <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" width="64" class="avatar"></a>
@@ -19,82 +18,98 @@
                     <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" width="64"></a>
                     {% endif %}
                 </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Username: {{ user.username }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Email: {{ user.email }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    ORCID: {{ user.profile.orcid }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    First Name: {{ user.first_name }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Last Name: {{ user.last_name }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Interests: {{ interests }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Affiliation: {{ user.profile.affiliation }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                   Linked In: <a href="{{ user.profile.linked_in }}">Profile</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Gender: {{ user.profile.gender }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Birth Date: {{ user.profile.birth_date }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    About Me: {{ user.profile.about_me }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Tweet Ammount: {{ user.profile.tweet_ammount }}
+
+                <div class="row">
+                    <div class="col col-margin">
+                        Interests: {{ interests }}
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col col-margin">
-                        Login: <a href="{% url 'login_twitter' %}">Click Me!</a>
-                </div>
-            </div>
+            <div id="line"></div>
+            <div class="right">
 
-            <div class="row"> 
-                <div class="col col-margin"> 
-                    {% if request.user.username == user.username %} 
-                        <a href="{% url 'edit_profile' %}" id="edit">Edit profile</a> 
-                        <a href="{% url 'edit_profile' %}">Edit profile</a> 
-                    {% endif %} 
-                </div> 
-            </div> 
+                <div class="row">
+                    <div class="col col-margin">
+                        Username: {{ user.username }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-margin">
+                        ORCID: {{ user.profile.orcid }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        Affiliation: {{ user.profile.affiliation }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        Email: {{ user.email }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        Name: {{ user.first_name }} {{ user.last_name }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        Gender: {{ user.profile.gender }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-margin">
+                        Birth Date: {{ user.profile.birth_date }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-margin">
+                        About Me: {{ user.profile.about_me }}
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col col-margin">
+                       Linked In: <a href="{{ user.profile.linked_in }}">{{ user.profile.linked_in}}</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                       Reddit: <a href="{{ user.profile.reddit_account }}">{{ user.profile.reddit_account }}</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        {% if user.profile.tweet_access_token %}
+                           Twitter: <a href="{{ user.profile.twitter_account }}">{{ user.profile.twitter_account }}</a>
+                        {% else %}
+                            Twitter:
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-margin">
+                        Tweet Ammount: {{ user.profile.tweet_ammount }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-margin">
+                        {% if request.user.username == user.username %}
+                            <a href="{% url 'edit_profile' %}" id="edit">Edit profile</a>
+                            <a href="{% url 'edit_profile' %}">Edit profile</a>
+                        {% endif %}
+                    </div>
+                </div>
         </div>
     </body>
 </html>

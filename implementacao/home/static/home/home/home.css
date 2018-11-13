@@ -5,9 +5,11 @@ header{
     position: fixed;
     top:0;
     margin-left: 0;
+    z-index:1;
 }
 main {
     margin-top: 30px;
+
 }
 .lab-btn-dark {
     background-color: #009740;
@@ -92,6 +94,13 @@ main {
     background-color: white;
     margin:auto;
     border: 3px solid #73AD21;    
-    width: 400;
-    height: 150;
+    width: 400px;
+    height: 150px;
+    position:relative;
+    z-index:2;
+}
+
+.header_icon{
+    height: 35px;
+    width: 35px;
 }

@@ -52,6 +52,8 @@ class ProfileForm(forms.ModelForm):
     gender       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),required=False)
     about_me     = forms.CharField(max_length=300, help_text='Max: 300 letters', required=False)
     tweet_ammount= forms.IntegerField(required=True, help_text='* Ammount of Tweets per Interest: 1-20')
+    twitter_account = forms.CharField(max_length=100, required=False)
+    reddit_account = forms.EmailField(max_length=100, required=False)
 
     class Meta:
         model = Profile
@@ -65,6 +67,8 @@ class ProfileForm(forms.ModelForm):
             'gender',
             'about_me',
             'tweet_ammount',
+            'twitter_account',
+            'reddit_account',
             )
 
 

@@ -132,14 +132,14 @@ def create_bookmark(request):
 
 	bookmark_form = BookmarkForm()
 	tweet_form = TweetForm()
-	return render(request, 'feed/home_tweets.html', {'bookmark_form': bookmark_form, 'tweet_form': tweet_form})
-
+	return redirect('/')
 @login_required
 def index_bookmarks(request):
 	tweet_form = TweetForm()
-	bookmark_list = request.user.profile.bookmarks.all()
+	print(request.user.profile.bookmarks.all)
+	bookmarks = request.user.profile.bookmarks.all()
 	bookmark_form = BookmarkForm()
-	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmark_list, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
+	return render(request, 'profile/index_bookmark.html', {'bookmarks': bookmarks, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
 
 @login_required
 def reddit_auth(request):
@@ -161,6 +161,14 @@ def reset_reddit(request):
 	profile = request.user.profile
 	profile.reddit_token = ''
 	profile.save(update_fields=["reddit_token"])
+	return redirect('/')
+
+@login_required
+def reset_twitter(request):
+	profile = request.user.profile
+	profile.tweet_access_token = ""
+	profile.tweet_access_token_secret = ""
+	profile.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
 	return redirect('/')
 
 @login_required
@@ -196,6 +204,9 @@ def callback_url(request):
 
 		# Set access to user
 		auth.set_access_token(key, secret)
+		api = tweepy.API(auth)
+		request.user.profile.twitter_account = "https://twitter.com/" + api.me().screen_name
+		request.user.profile.save(update_fields=["twitter_account"])
 
 	except tweepy.TweepError as e:
 		print(e)

@@ -60,28 +60,21 @@ $(document).ready(function() {
                             <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
                             {% endif %}
                         </div>
-
                         <div class="col-1 my-auto">
-                            <a href=""><img src="{% static 'home/home/icons/notification.png' %}" class="icon"></a>
+                            <input type="image" src="{% static 'home/home/icons/blog.png' %}" data-toggle="modal" data-target="#post_tweet" class="header_icon"/>
                         </div>
                         <div class="col-1 my-auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_tweet">
-                              Launch demo modal
-                            </button>
+                           <a href="/bookmarks"> <input type="image" src="{% static 'home/home/icons/notebook.png' %}" class="header_icon"/></a>
                         </div>
                          <div class="col-1 my-auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_bookmark">
-                              Launch demo modal
-                            </button>
+                             <input type="image" src="{% static 'home/home/icons/notebookAdd.png' %}" data-toggle="modal" data-target="#post_bookmark" class="header_icon"/>
                         </div>
                         <div class="col-1 my-auto">
-                            <a value="logout" href="/logout"><button class="lab-btn-dark">Logout</button></a>
+                            <a href="/logout"><img src="{% static 'home/home/icons/logout.png' %}" class="header_icon"></a>
                         </div>
                     </div>
                     
                 </div>
-
-
             </div>
             {% endif %}           
         </header>
@@ -142,6 +135,8 @@ $(document).ready(function() {
             <div>Link : {{ bookmark_form.link }} </div>
 
             <div>Description : {{ bookmark_form.description }} Max: 100 chars </div>
+             <div>Interests : {{ bookmark_form.interests }} </div>
+
             <button type="submit">Create</button>
           </form>
       </div>
