@@ -16,6 +16,8 @@ class Profile(models.Model):
     birth_date   = models.DateField(default=date.today, blank=True)
     about_me     = models.CharField(max_length=300, blank=True)
     tweet_ammount= models.IntegerField(default=10, blank=True, validators=[MinValueValidator(1), MaxValueValidator(20)])
+    show_reddit = models.BooleanField(default=True, blank=True)
+    show_twitter = models.BooleanField(default=True, blank=True)
     twitter_account = models.CharField(max_length=100, blank=True)
     reddit_account = models.CharField(max_length=100, blank=True)
 

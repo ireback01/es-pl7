@@ -130,13 +130,12 @@ $(document).ready(function() {
         </button>
       </div>
       <div class="modal-body">
-         <form enctype='multipart/form-data' id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
+         <form id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
             {% csrf_token %}
             <div>Link : {{ bookmark_form.link }} </div>
 
             <div>Description : {{ bookmark_form.description }} Max: 100 chars </div>
-             <div>Interests : {{ bookmark_form.interests }} </div>
-
+            <div>Hashtags : {{ bookmark_form.interests }} </div>
             <button type="submit">Create</button>
           </form>
       </div>

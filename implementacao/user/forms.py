@@ -12,6 +12,12 @@ class SignUp(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and User.objects.filter(email=email).exists():
+            raise forms.ValidationError(u'Email addresses must be unique.')
+        return email
+
 class EditProfileForm(UserChangeForm):
     first_name = forms.CharField(max_length=256, required=True)
     last_name = forms.CharField(max_length=256, required=True)
@@ -52,6 +58,8 @@ class ProfileForm(forms.ModelForm):
     gender       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),required=False)
     about_me     = forms.CharField(max_length=300, help_text='Max: 300 letters', required=False)
     tweet_ammount= forms.IntegerField(required=True, help_text='* Ammount of Tweets per Interest: 1-20')
+    show_reddit = forms.BooleanField(required=False)
+    show_twitter = forms.BooleanField(required=False)
     twitter_account = forms.CharField(max_length=100, required=False)
     reddit_account = forms.EmailField(max_length=100, required=False)
 
@@ -67,6 +75,8 @@ class ProfileForm(forms.ModelForm):
             'gender',
             'about_me',
             'tweet_ammount',
+            'show_reddit',
+            'show_twitter',
             'twitter_account',
             'reddit_account',
             )
