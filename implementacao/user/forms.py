@@ -12,6 +12,12 @@ class SignUp(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and User.objects.filter(email=email).exists():
+            raise forms.ValidationError(u'Email addresses must be unique.')
+        return email
+
 class EditProfileForm(UserChangeForm):
     first_name = forms.CharField(max_length=256, required=True)
     last_name = forms.CharField(max_length=256, required=True)
