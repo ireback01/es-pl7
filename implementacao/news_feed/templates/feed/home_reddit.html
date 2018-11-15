@@ -1,0 +1,43 @@
+{% extends "home/home.html" %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'news_feed/feed/posts.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            {% for posts in args %}
+                {% for post in posts %}
+                <div class="row post-frame">
+                    <div class="col">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-1">
+                                <a href="https://www.reddit.com/user/{{ post.author.name }}" target="_blank"><img src="{{ post.author.icon_img }}" class="avatar-frame"></a>
+                            </div>
+                            <div class="col-11 my-auto">
+                                <h4>{{ post.title }}</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {% if post.is_self %}
+                                {{ post.selftext }}
+                                {% else %}
+                                <img src="{{ post.url }}" class="post-image">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" align="right">
+                                <a href="{{ post.url }}" target="_blank">Link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </body>
+
+{% endblock %}

@@ -3,19 +3,68 @@
 
 {% block content %}
     <head>
-        <link rel="stylesheet" href="{% static 'news_feed/feed/tweet.css' %}">
+        <link rel="stylesheet" href="{% static 'news_feed/feed/posts.css' %}">
     </head>
     <body>
-        {% for tweets in args %}
-            {% for tweet in tweets %}
-            <a href="https://twitter.com/{{tweet.user.name}}/status/{{tweet.id_str}}">
-                <div id= 'tweet'>
-                    <p>{{ tweet.text }}</p>
-                </div>
-                <div id ="interval"></div>
-            </a>
+        <div class="container">
+            {% for post in args %}
+                {% if post.created_at != None %}
+                    <div class="row post-frame">
+                        <div class="col">
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-1">
+                                    <a href="https://twitter.com/{{ post.user.name }}" target="_blank"><img src="{{ post.user.profile_image_url }}" class="avatar-frame"></a>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col">
+                                    <span>{{ post.full_text }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for image in post.extended_entities.media %}
+                                <div class="col" align="center">
+                                    <img src="{{ image.media_url }}" class="post-image">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row">
+                                <div class="col" align="right">
+                                    <a href="https://twitter.com/{{ post.user.name }}/status/{{ post.id_str }}" target="_blank">Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row post-frame">
+                        <div class="col">
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-1">
+                                    <a href="https://www.reddit.com/user/{{ post.author.name }}" target="_blank"><img src="{{ post.author.icon_img }}" class="avatar-frame"></a>
+                                </div>
+                                <div class="col-11 my-auto">
+                                    <h4>{{ post.title }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {% if post.is_self %}
+                                    {{ post.selftext }}
+                                    {% else %}
+                                    <img src="{{ post.url }}" class="post-image">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" align="right">
+                                    <a href="{{ post.url }}" target="_blank">Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
-        {% endfor %}
+        </div>
     </body>
 
 {% endblock %}

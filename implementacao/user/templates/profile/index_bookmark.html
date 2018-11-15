@@ -6,21 +6,19 @@
         <link rel="stylesheet" href="{% static 'user/profile/tweet.css' %}">
     </head>
     <body>
-        {% if bookmarks %}
-            {% for bk in bookmarks %}
-                <a href = {{ bk.link }}>
-                    <div id="link">
-                        {{bk.link}}
-                    </div>
-                </a>
-                <div id= 'tweet'>
-                        <p>{{ bk.description }}</p>
+        {% for bk in bookmarks %}
+            <a href = {{ bk.link }}>
+                <div id="link">
+                    {{bk.link}}
                 </div>
-                <div id='hashtags'>
-                    {{ bk.interests }}
-                </div>
-            {% endfor %}
-        {% endif %}
+            </a>
+            <div id= 'tweet'>
+                    <p>{{ bk.description }}</p>
+            </div>
+            <div id='hashtags'>
+                {{ bk.interests }}
+            </div>
+        {% endfor %}
     </body>
 
 {% endblock %}
