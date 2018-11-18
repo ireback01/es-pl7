@@ -1,0 +1,3 @@
+Estiveram presentes no dia 18-11-2018 das 21H46 até às 23H o coordenador de requisitos (Eduardo Guerra) e a vice-coordenadora de requisitos (Carolina Batista) para a reunião de inspeção. 
+Foram decididas durantes este intervalo de tempo as correções a efetuar ao documento em relação aos defeitos registados em "Inspecção formal ao documento de requisitos (Respostas) - Respostas do Formulário 1.pdf". 
+Este documento contém em formato pdf as resposta recolhidas no formulário destinado à inspeção do SRS.
