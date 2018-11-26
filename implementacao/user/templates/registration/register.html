@@ -23,48 +23,53 @@
   </head>
 
   <body onload="load()">
-    <h1>Register User</h1>
-    <form method="post" action="{% url 'register' %}">
-      {% csrf_token %}
-      <div class="container-fluid" align="center">
-        {% for field in user_form %}
-        <div class="row">
-          <div class="col col-margin">
-            {{ field }}
-          </div>
+    <div class="container full-height" align="center">
+        <div class="row full-height">
+            <div class="col-6 my-auto">
+                <div class="row">
+                    <div class="col">
+                        <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+                    <div class="col">
+                        <h2>Welcome!</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span>Register for a LabSync account here and get access to a platform where you can see news and communicate with other researchers.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 my-auto">
+                <form method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    {% for field in user_form %}
+                    <div class="row">
+                      <div class="col">
+                        {{ field }}
+                      </div>
+                    </div>
+                    <!-- {% if field.help_text %} -->
+                    <!-- <small style="color: grey">{{ field.help_text }}</small> -->
+                    <!-- {% endif %} -->
+                    {% for error in field.errors %}
+                    <div class="row" style="margin-top: 15px;">
+                      <div class="col">
+                        <span>{{ error }}</span>
+                      </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                    <div class="row" style="margin-top: 30px;">
+                      <div class="col">
+                        <input class="lab-btn" type="submit" value="Register">
+                      </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!-- {% if field.help_text %} -->
-        <!-- <small style="color: grey">{{ field.help_text }}</small> -->
-        <!-- {% endif %} -->
-        {% for error in field.errors %}
-        <div class="row">
-          <div class="col col-margin">
-            <span>{{ error }}</span>
-          </div>
-        </div>
-        {% endfor %}
-        {% endfor %}
-        {% if user_form.errors %}
-        <div class="row">
-          <div class="col col-margin">
-            <span>There are errors in this form!</span>
-          </div>
-        </div>
-        {% endif %}
-        <div class="row">
-          <div class="col col-margin">
-            <input class="lab-btn" type="submit" value="Register">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col col-margin" align="right">
-            <a href="{% url 'login'%}">Login</a> 
-          </div>
-          <div class="col col-margin" align="left">
-            <a href="/">Home</a>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </body>
 </html>
