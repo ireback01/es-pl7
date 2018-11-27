@@ -1,15 +1,32 @@
 .avatar {
     border-radius: 50%
 }
-#edit{
-
-}
-.right{
-    margin-left: 40%;
-}
-.left{
-    margin-left: 40%;
-}
 #changeColor{
-    color: cornflowerblue;
+    color: deepskyblue;
+}
+
+
+.container_profile{
+    margin: 5% 10% 5% 10%;
+}
+
+#info{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #3EC28F;
+
+    margin-left: 5%;
+}
+#line{
+    margin-left: 7%;
+}
+#leftE{
+    margin-left:20%;
+}
+#margin{
+    margin-top:2%;
+}
+#resize{
+    height: 60px;
+    width:  60px;
 }

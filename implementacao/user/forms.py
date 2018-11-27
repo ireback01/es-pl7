@@ -51,6 +51,7 @@ class ProfileForm(forms.ModelForm):
     interests    = forms.CharField(max_length=256, required=False, help_text='*')
     subreddits = forms.CharField(max_length=512, required=False)
     affiliation  = forms.CharField(max_length=30, required=True, help_text='*')
+    research_group = forms.CharField(max_length=30, required=True, help_text='*')
     linked_in    = forms.URLField(required=False, help_text='Insert Linked In url')
     image        = forms.ImageField(required=False)
     orcid        = forms.CharField(max_length=19, required=True, help_text='*')
@@ -67,6 +68,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             'affiliation',
+            'research_group',
             'linked_in',
             'image',
             'orcid',

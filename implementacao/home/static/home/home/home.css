@@ -1,5 +1,5 @@
 header{
-    background-color: #BCFBBA;
+    background-color: #DEF5E1;
     padding-top: 15px;
     padding-bottom: 15px;
     position: fixed;
@@ -8,8 +8,11 @@ header{
     z-index:1;
 }
 main {
-    margin-top: 30px;
-
+    margin-top: 7%;
+    background-color: #F5F5F5;
+}
+html{
+    background-color: #F5F5F5;
 }
 .lab-btn-dark {
     background-color: #009740;
@@ -79,9 +82,7 @@ main {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-#space{
-    height:50px;
-}
+
 .icon {
     height: 24px;
     width:  24px;
