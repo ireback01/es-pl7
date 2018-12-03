@@ -102,7 +102,7 @@ def edit_profile(request):
 		if request.user.profile.interests is not None:
 			for interest in request.user.profile.interests.all():
 				string = string + str(interest) + " "
-		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
+		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string}, auto_id="profile_%s")
 		user_form = EditProfileForm(instance = request.user)
 		args = {
 			'user_form': user_form,
@@ -153,14 +153,16 @@ def store_reddit_token(request):
 	refresh_token = reddit.auth.authorize(request.GET.get('code'))
 	profile = request.user.profile
 	profile.reddit_token = refresh_token
-	profile.save(update_fields=["reddit_token"])
+	profile.reddit_account = "https://reddit.com/user/" + reddit.user.me().name
+	profile.save(update_fields=["reddit_token", "reddit_account"])
 	return redirect('/')
 
 @login_required
 def reset_reddit(request):
 	profile = request.user.profile
 	profile.reddit_token = ''
-	profile.save(update_fields=["reddit_token"])
+	profile.reddit_account = ''
+	profile.save(update_fields=["reddit_token", "reddit_account"])
 	return redirect('/')
 
 @login_required
@@ -168,7 +170,8 @@ def reset_twitter(request):
 	profile = request.user.profile
 	profile.tweet_access_token = ""
 	profile.tweet_access_token_secret = ""
-	profile.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
+	profile.twitter_account = ""
+	profile.save(update_fields=["tweet_access_token", "tweet_access_token_secret", "twitter_account"])
 	return redirect('/')
 
 @login_required

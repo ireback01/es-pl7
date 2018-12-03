@@ -12,31 +12,23 @@
     <body>
         <div class="container container_profile">
             <div class="row">
-                <div class="col-2"></div>
-
-                <div class="col-1" align="center">
-
+                <div class="col" align="center">
                     {% if profile.image != '' %}
                         <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" class="avatar"></a>
                     {% else %}
-                         <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="avatar"></a>
+                        <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="avatar"></a>
                     {% endif %}
                 </div>
-
-
-                    <div class="user">
-                        <h5><b>{{ user.username }}</b></h5>
-                    </div>
-
-                    <div class="col-7" align="center">
-                        <div class="center-block">
-                            {% if request.user.username == user.username %}
-                                <a href="{% url 'edit_profile' %}" id="changeColor">
-                                    <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
+                <div class="col my-auto" align="left">
+                    <h5>{{ user.username }}</h5>
+                </div>
+                 <div class="col my-auto" align="center">
+                    {% if request.user.username == user.username %}
+                        <a href="{% url 'edit_profile' %}" id="changeColor">
+                            <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
+                        </a>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="row" id="line">

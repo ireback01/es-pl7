@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script>
             function readURL(input) {
                 if (input.files && input.files[0]) {
@@ -23,69 +22,26 @@
                 }
             }
         </script>
-        <script>
-            function onload() {
-                /*var id_img = document.getElementById("id_image");
-                id_img.setAttribute("onchange", readURL(id_img));*/
-
-                let research_group_input = document.getElementById("id_research_group");
-                research_group_input.placeholder="URL of Research Group";
-                research_group_input.classList.add("lab_input");
-
-                let first_name_input = document.getElementById("id_first_name");
-                first_name_input.placeholder="First Name";
-                first_name_input.classList.add("lab_input");
-
-                let last_name_input = document.getElementById("id_last_name");
-                last_name_input.placeholder="Last Name";
-                last_name_input.classList.add("lab_input");
-
-                let birth_date_input = document.getElementById("id_birth_date");
-                birth_date_input.placeholder="Format: yyyy-mm-dd";
-                birth_date_input.classList.add("lab_input");
-
-                let about_me_input = document.getElementById("id_about_me");
-                about_me_input.placeholder="Max Chars: 300";
-                about_me_input.classList.add("lab_input");
-
-                let linked_in_input = document.getElementById("id_linked_in");
-                linked_in_input.placeholder="linkedIN URL";
-                linked_in_input.classList.add("lab_input");
-
-                let interests_input = document.getElementById("id_interests");
-                interests_input.placeholder="Format: #example #example2";
-                interests_input.classList.add("lab_input");
-
-                let subreddits_input = document.getElementById("id_subreddits");
-                subreddits_input.placeholder="Format: example example2";
-                subreddits_input.classList.add("lab_input");
-            }
-        </script>
     </head>
-    <body onload="onload">
+    <body>
         <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
             {% csrf_token %}
             <div class="container container_profile">
-
                 <div class="row">
-                    <div class="col-2"></div>
-
-                    <div class="col">
+                    <div class="col" align="center">
                         {% if profile.image != '' %}
                             <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" class="label_img" id="profile_pic"></a>
                         {% else %}
                             <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="label_img" id="profile_pic"></a>
                         {% endif %}
-
-                        <input type='file' name="image" value='{{ profile_form.image }}' onchange='readURL(this);' />
-
-                    </div>
-
-                     <div class="user">
-                         <div class="col">
-                            <h5><b>{{ user.username }}</b></h5>
+                        <div class="user">
+                            <input type='file' name="image" value='{{ profile_form.image }}' onchange='readURL(this);' id="file-upload" class="hide_me"/>
+                            <label for="file-upload" class="lab-btn">Upload</label>
                         </div>
-                     </div>
+                    </div>
+                    <div class="col my-auto" align="left">
+                        <h5>{{ user.username }}</h5>
+                    </div>
                 </div>
 
             <div class="row" id="line">
@@ -248,6 +204,7 @@
                                 <b>Show Tweets in home page:</b> {{ profile_form.show_twitter }}
                                 <p>
                                 <b>Show Reddit posts in home page:</b> {{ profile_form.show_reddit }}
+                                {{ profile_form.twitter_account }}
                             </div>
                         </div>
                         <div class="row">

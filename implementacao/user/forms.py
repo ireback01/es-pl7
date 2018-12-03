@@ -48,7 +48,7 @@ class ProfileForm(forms.ModelForm):
     CHOICES = [('Male', 'male'),
                ('Female', 'female')]
 
-    interests    = forms.CharField(max_length=256, required=False, help_text='*')
+    interests    = forms.CharField(max_length=256, required=False)
     subreddits = forms.CharField(max_length=512, required=False)
     affiliation  = forms.CharField(max_length=30, required=True, help_text='*')
     research_group = forms.CharField(max_length=30, required=True, help_text='*')

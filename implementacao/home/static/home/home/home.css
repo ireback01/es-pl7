@@ -66,7 +66,7 @@ html{
     height:5%;
 }
 
-.lab_input {
+.lab-input {
 	border: none;
 	border-bottom: 1px solid #747474;
     background-image: none;
@@ -104,21 +104,28 @@ html{
 }
 .lab-btn:hover {
     -webkit-animation-name: color-effect;
-    -webkit-animation-duration: 2.5s;
+    -webkit-animation-duration: 1.0s;
     animation-name: color-effect;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 @-webkit-keyframes color-effect{
-    from{background-color: #3ec290;}
-    to{background-color: #4cd09f;}
+    from{background-color: #3ec290; color: #747474;}
+    to{background-color: #ddf4e1; color: #4fc798;}
 }
 @keyframes color-effect{
-    from{background-color: #3ec290;}
-    to{background-color: #4cd09f;}
+    from{background-color: #3ec290; color: #747474;}
+    to{background-color: #ddf4e1; color: #4fc798;}
 }
 .lab-btn:focus {
     outline : 0;
     -moz-outline : 0;
     border : 0;
+}
+
+.inv-input{
+    opacity:0;
+}
+.hide_me{
+    display: none;
 }
