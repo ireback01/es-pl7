@@ -17,18 +17,18 @@ body {
 }
 .lab-btn:hover {
     -webkit-animation-name: color-effect;
-    -webkit-animation-duration: 2.5s;
+    -webkit-animation-duration: 1.0s;
     animation-name: color-effect;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 @-webkit-keyframes color-effect{
-    from{background-color: #3ec290;} 
-    to{background-color: #4cd09f;}
+    from{background-color: #3ec290; color: #747474;} 
+    to{background-color: #ddf4e1; color: #4fc798;}
 }
 @keyframes color-effect{
-    from{background-color: #3ec290;} 
-    to{background-color: #4cd09f;}
+    from{background-color: #3ec290; color: #747474;} 
+    to{background-color: #ddf4e1; color: #4fc798;}
 }
 .lab-btn:focus {
     outline : 0;
@@ -62,11 +62,6 @@ main {
 #space{
     height:50px;
 }
-.icon {
-    height: 24px;
-    width:  24px;
-    /* border-style: dotted; */
-}
 .logo {
     width: 32px;
 }
@@ -79,7 +74,6 @@ main {
     position:relative;
     z-index:2;
 }
-
 .header_icon{
     height: 35px;
     width: 35px;
