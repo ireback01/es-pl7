@@ -8,7 +8,7 @@ from .models import Profile
 from django.contrib.auth.models import User
 from news_feed.models import Hashtag
 from news_feed.forms import BookmarkForm, HashtagForm #Custom register form
-from news_feed.models import Bookmark
+from news_feed.models import Bookmark, PublicAPI
 import praw
 from django.conf import settings
 from tweepy.auth import OAuthHandler
@@ -54,20 +54,27 @@ def register(request):
 			user = authenticate(username=username, password=password) #takes care of hashing and so on
 			messages.info(request, 'User created with Success!')
 			login(request,user)
-			profile = Profile.objects.get(id=user.id)
-			arg={
-				'user':user,
-				'profile' : profile 
-			}
-			return redirect('/profile/edit_profile/',arg)
+			api = PublicAPI(getattr(settings, 'ORCID_ID'), getattr(settings, 'ORCID_SECRET'))
+			redirect_url = api.get_login_url('/authenticate', 'http://localhost:8000/handle_orcid')
+			return redirect(redirect_url)
 	else:
 		user_form = SignUp()
 	return render(request,'registration/register.html',{'user_form' : user_form } )
 
 @login_required
+def handle_orcid(request):
+	orcid_code = request.GET.get('code')
+	if (orcid_code != ''):
+		api = PublicAPI(getattr(settings, 'ORCID_ID'), getattr(settings, 'ORCID_SECRET'))
+		api.get_token_from_authorization_code(orcid_code, 'http://localhost:8000/edit_profile')
+	else:
+		user_form = SignUp()
+		return render(request,'registration/register.html',{'user_form' : user_form } )
+
+@login_required
 def edit_profile(request):
 	#Processes 2 forms.. 1 Auth user and 1 custom model (profile)
-	profile = Profile.objects.get(id=request.user.id)
+	profile = Profile.objects.get(user_id=request.user.id)
 	tweet_form = TweetForm()
 	bookmark_form = BookmarkForm()
 	if request.method == 'POST':
