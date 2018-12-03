@@ -43,8 +43,30 @@ $(document).ready(function() {
 });
 </script>
 
+
+<script>
+    function onload() {
+        let text_input = document.getElementById("id_text");
+        text_input.placeholder="Max Chars: 150";
+        text_input.classList.add("lab_input");
+
+        let link_input = document.getElementById("id_link");
+            link_input.placeholder="Link";
+            link_input.classList.add("lab_input");
+
+        let description_input = document.getElementById("id_description");
+            description_input.placeholder="Max: 100 chars";
+            description_input.classList.add("lab_input");
+
+        let hashtags_input = document.getElementById("id_interests");
+            hashtags_input.placeholder="Interests";
+            hashtags_input.classList.add("lab_input");
+    }
+
+</script>
+
     </head>
-    <body>
+    <body onload="onload()">
         <header class="container-fluid header" style="margin-bottom: 40px;">
             {% if user.is_authenticated %}
             <div class="row" align="center">
@@ -86,63 +108,114 @@ $(document).ready(function() {
         </main>
 
 <!-- Tweet Modal -->
-<div class="modal fade" id="post_tweet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Tweet</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+        <div class="modal fade" id="post_tweet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container container-modal">
+                                <div class="row" align="center">
+                                    <div class="col">
+                                         <h3 class="modal-title">Create Tweet</h3>
+                                   </div>
+                                </div>
+                                <div class="space"></div>
+                                 {% if request.user.profile.tweet_access_token != "" %}
+                                    <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-4" >
+                                                Text:
+                                            </div>
+                                             <div class="col" >
+                                                 {{ tweet_form.text }}
+                                            </div>
+                                        </div>
+                                        <div id="space"></div>
+                                         <div class="row">
+                                            <div class="col-3" >
+                                                Image:
+                                            </div>
+                                             <div class="col" >
+                                                 {{ tweet_form.image }}
+                                            </div>
 
-          {% if request.user.profile.tweet_access_token != "" %}
-              <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
-                    {% csrf_token %}
-                    <div>Text : {{ tweet_form.text }}  {{ tweet_form.text.help_text }}</div>
-
-                    <div>Image : {{ tweet_form.image }}  </div>
-                    <button type="submit" value="submit"> Submit </button>
-              </form>
-          {% else %}
-                Twitter Account Association Needed
-          {% endif %}
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                                        </div>
+                                        <div class="last-space"></div>
+                                        <div class="row">
+                                            <div class="col" align="center">
+                                                {% if request.user.profile.tweet_access_token != "" %}
+                                                    <button type="submit" value="submit" class="lab-btn"> Submit </button>
+                                                {% endif %}
+                                                                
+                                                <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                 {% else %}
+                                        Twitter Account Association Needed
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+             </div>
+        </div>
 
 <!-- Bookmark Modal -->
-<div class="modal fade" id="post_bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Bookmark</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <form id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
-            {% csrf_token %}
-            <div>Link : {{ bookmark_form.link }} </div>
+        <div class="modal fade" id="post_bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container container-modal">
+                            <div class="row" align="center">
+                                <div class="col">
+                                     <h3 class="modal-title">Create Bookmark</h3>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                            <form id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-4" >
+                                        Link:
+                                    </div>
+                                     <div class="col" >
+                                         {{ bookmark_form.link }}
+                                    </div>
+                                </div>
 
-            <div>Description : {{ bookmark_form.description }} Max: 100 chars </div>
-            <div>Hashtags : {{ bookmark_form.interests }} </div>
-            <button type="submit">Create</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                                <div id="space"></div>
+
+                                <div class="row">
+                                    <div class="col-4" >
+                                        Description:
+                                    </div>
+                                     <div class="col" >
+                                         {{ bookmark_form.description }}
+                                    </div>
+                                </div>
+
+                                <div id="space"></div>
+
+                                <div class="row">
+                                    <div class="col-4" >
+                                        Hashtags:
+                                    </div>
+                                     <div class="col" >
+                                         {{ bookmark_form.interests }}
+                                    </div>
+                                </div>
+
+                                <div class="last-space"></div>
+                                 <div class="row">
+                                    <div class="col" align="center">
+                                        <button type="submit" value="submit" class="lab-btn"> Submit </button>
+                                        <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -1,27 +1,31 @@
 .avatar {
-    border-radius: 50%
+    border-radius: 50%;
+    border: 2px;
+    border-style: solid;
+    width: 100px;
+    height:100px;
+    border-color: #3EC28F;
+}
+.user{
+    margin-left: 8%;
+    margin-top: 3%;
 }
 #changeColor{
     color: deepskyblue;
 }
-
-
 .container_profile{
     margin: 5% 10% 5% 10%;
 }
 
 #info{
     border-style: solid;
-    border-width: 2px;
+    border-width: 3px;
     border-color: #3EC28F;
-
-    margin-left: 5%;
-}
-#line{
     margin-left: 7%;
 }
-#leftE{
-    margin-left:20%;
+#line{
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 #margin{
     margin-top:2%;

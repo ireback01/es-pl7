@@ -1,0 +1,41 @@
+
+.label_img{
+    border-radius: 50%;
+    width:120px;
+    height:120px;
+}
+
+#info{
+    margin-left: 7%;
+}
+
+#line{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.lab-input {
+	border: none;
+	border-bottom: 1px solid #747474;
+    background-image: none;
+    background-color: #f5f5f5;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    max-width: 256px;
+    width: 100%;
+}
+.lab-input:focus {
+	outline : 0;
+	-moz-outline : 0;
+}
+
+#margin{
+    margin-top:4%;
+}

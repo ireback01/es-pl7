@@ -11,32 +11,43 @@
     </head>
     <body>
         <div class="container container_profile">
-            <div class="row" id="leftE">
-                <div class="col">
+            <div class="row">
+                <div class="col-2"></div>
+
+                <div class="col-1" align="center">
+
                     {% if profile.image != '' %}
-                    <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" width="64" class="avatar"></a>
+                        <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" class="avatar"></a>
                     {% else %}
-                    <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" width="64"></a>
+                         <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="avatar"></a>
                     {% endif %}
                 </div>
 
+
+                    <div class="user">
+                        <h5><b>{{ user.username }}</b></h5>
+                    </div>
+
+                    <div class="col-7" align="center">
+                        <div class="center-block">
+                            {% if request.user.username == user.username %}
+                                <a href="{% url 'edit_profile' %}" id="changeColor">
+                                    <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
             </div>
-            <div class="row" id="leftE">
-                <div class="col-2">
-                    <div class="row">
-                        <b>Reasearch Interests:</b> <br>{{ interests }}
-                    </div>
-                    <div class="row" id="margin">
-                        <b>SubReddits:</b> <br>{{ subreddits }}
-                    </div>
+
+            <div class="row" id="line">
+                <div class="col" id="line">
+                    <div style="border-left:1140px solid #000;height:3px;border-color: #3EC28F"></div>
                 </div>
+            </div>
 
-                <div class="col-1" id="line">
-                    <div style="border-left:2px solid #000;height:800px;border-color: #3EC28F"></div>
-                </div>
-
-                <div class="col-5" id="info">
-
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-6" id="info">
                     <div class="row">
                         <div>
                             <hr>
@@ -45,6 +56,7 @@
                            <b> Username:</b>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
                             {{ user.username }}
@@ -128,7 +140,7 @@
                     </div>
                     <div class="row" id="margin">
                         <div class="col">
-                          <b>  About Me:</b>
+                          <b>  BIO:</b>
                         </div>
                     </div>
                     <div class="row">
@@ -183,16 +195,18 @@
                              {{ user.profile.tweet_ammount }}
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-10"></div>
-                <div class="col">
-                    {% if request.user.username == user.username %}
-                        <a href="{% url 'edit_profile' %}" id="changeColor">
-                            <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
-                        </a>
-                    {% endif %}
+
+                    <div class="row" id="margin">
+                        <div class="col col-margin">
+                            <b>Reasearch Interests:</b> <br>{{ interests }}
+
+                        </div>
+                    </div>
+                    <div class="row" id="margin">
+                        <div class="col col-margin">
+                            <b>SubReddits:</b> <br>{{ subreddits }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
