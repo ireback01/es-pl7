@@ -153,25 +153,25 @@ def reddit_auth(request):
 def store_reddit_token(request):
 	reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', redirect_uri='http://127.0.0.1:8000/store_reddit_token')
 	refresh_token = reddit.auth.authorize(request.GET.get('code'))
-	profile = request.user.profile
-	profile.reddit_token = refresh_token
-	profile.save(update_fields=["reddit_token"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.reddit_token = refresh_token
+	profile_user.save(update_fields=["reddit_token"])
+	return profile(request, request.user.username)
 
 @login_required
 def reset_reddit(request):
-	profile = request.user.profile
-	profile.reddit_token = ''
-	profile.save(update_fields=["reddit_token"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.reddit_token = ''
+	profile_user.save(update_fields=["reddit_token"])
+	return profile(request, request.user.username)
 
 @login_required
 def reset_twitter(request):
-	profile = request.user.profile
-	profile.tweet_access_token = ""
-	profile.tweet_access_token_secret = ""
-	profile.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.tweet_access_token = ""
+	profile_user.tweet_access_token_secret = ""
+	profile_user.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
+	return profile(request, request.user.username)
 
 @login_required
 def login_twitter(request):
