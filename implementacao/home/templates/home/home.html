@@ -104,6 +104,7 @@ $(document).ready(function() {
                     <div>Text : {{ tweet_form.text }}  {{ tweet_form.text.help_text }}</div>
 
                     <div>Image : {{ tweet_form.image }}  </div>
+                    <input type="hidden" name="next" value="{{ request.path }}">
                     <button type="submit" value="submit"> Submit </button>
               </form>
           {% else %}
@@ -136,6 +137,7 @@ $(document).ready(function() {
 
             <div>Description : {{ bookmark_form.description }} Max: 100 chars </div>
             <div>Hashtags : {{ bookmark_form.interests }} </div>
+            <input type="hidden" name="next" value="{{ request.path }}">
             <button type="submit">Create</button>
           </form>
       </div>

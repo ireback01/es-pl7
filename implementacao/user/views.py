@@ -132,7 +132,9 @@ def create_bookmark(request):
 
 	bookmark_form = BookmarkForm()
 	tweet_form = TweetForm()
-	return redirect('/')
+	next = request.POST.get('next', '/')
+	return HttpResponseRedirect(next)
+
 @login_required
 def index_bookmarks(request):
 	tweet_form = TweetForm()
@@ -240,4 +242,5 @@ def post_tweet(request):
 			else:
 				api.update_status(tweet_form.cleaned_data.get('text'))
 
-	return redirect('/')
+	next = request.POST.get('next', '/')
+	return HttpResponseRedirect(next)
