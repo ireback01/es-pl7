@@ -48,7 +48,6 @@
                 return false;
             });
         });
-<<<<<<< HEAD
     </script>
     <script>
         function onload() {
@@ -228,11 +227,11 @@
                                 <div class="col">
                                     {{ tweet_form.image }}
                                 </div>
-
                             </div>
                             <div class="last-space"></div>
                             <div class="row">
                                 <div class="col" align="center">
+                                    <input type="hidden" name="next" value="{{ request.path }}">
                                     <button type="submit" value="submit" class="lab-btn">Submit</button>
                                     <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
                                 </div>
@@ -296,7 +295,6 @@
                         </div>
 
                         <div id="space"></div>
-
                         <div class="row">
                             <div class="col-4">
                                 Description:
@@ -320,6 +318,7 @@
                         <div class="last-space"></div>
                         <div class="row">
                             <div class="col" align="center">
+                                <input type="hidden" name="next" value="{{ request.path }}">
                                 <button type="submit" value="submit" class="lab-btn"> Submit</button>
                                 <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
                             </div>

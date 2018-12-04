@@ -74,7 +74,6 @@
                             <div class="col">
                                 {{ profile_form.orcid }} {{ profile_form.orcid.help_text }}
                             </div>
-
                         </div>
 
                         <div class="row" id="margin">
@@ -209,6 +208,7 @@
                         </div>
                         <div class="row">
                             <div class="col col-margin">
+                                <input type="hidden" name="next" value="{{ request.path }}">
                                 <button type="submit" value="submit" class="lab-btn">Save</button>
                             </div>
                         </div>
