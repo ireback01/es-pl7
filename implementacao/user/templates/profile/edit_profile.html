@@ -1,165 +1,221 @@
-<!DOCTYPE html>
+{% extends 'home/home.html' %}
+{% block content %}
+{% load static %}
+
 <html>
-<head>
-    <title>Edit Profile</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#id_interests").keyup(function(evt){
-                if (evt.keyCode == 32) {
-                    var data = $("#id_interests").val();
-                    data += '#';
-                    $("#id_interests").val(data);                
+    <head>
+        <title>Edit Profile</title>
+        <link rel="stylesheet" href="{% static 'user/profile/edit_profile.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#profile_pic')
+                            .attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
                 }
-            });
-            $("#id_interests").click(function(evt){
-                if ($("#id_interests").val() === ""){
-                    $("#id_interests").val("#");
-                }
-            });
-            $("#id_interests").focusout(function(evt){
-                if ($("#id_interests").val().trim().slice(-1) === "#"){
-                    var str = $("#id_interests").val().trim();
-                    var data = str.substring(0, str.length - 1);
-                    $("#id_interests").val(data);
-                }
-            });
-            $('#id_interests').keypress(function(e){
-                if(e.keyCode == 35 && $("#id_interests").val()!=""){
-                    return false;
-                }else if(e.keyCode == 32){
-                    var str = $("#id_interests").val().trim();
-                    if(str.slice(-1) === "#" || str.slice(-1) === " "){
-                        return false;
-                    }
-                } else {
-                }
-            });
-        });
-    </script>
-</head>
-<body>
-    {% extends 'home/home.html' %}
-    {% block content %}
-    <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
-        {% csrf_token %}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col col-margin">
-                    Profile Picture: {{ profile_form.image }}
+            }
+        </script>
+    </head>
+    <body>
+        <form enctype='multipart/form-data' method="POST" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+            <div class="container container_profile">
+                <div class="row">
+                    <div class="col" align="center">
+                        {% if profile.image != '' %}
+                            <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" class="label_img" id="profile_pic"></a>
+                        {% else %}
+                            <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="label_img" id="profile_pic"></a>
+                        {% endif %}
+                        <div class="user">
+                            <input type='file' name="image" value='{{ profile_form.image }}' onchange='readURL(this);' id="file-upload" class="hide_me"/>
+                            <label for="file-upload" class="lab-btn">Upload</label>
+                        </div>
+                    </div>
+                    <div class="col my-auto" align="left">
+                        <h5>{{ user.username }}</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Username: {{ user.username }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Email: {{ user.email }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    First Name: {{ user_form.first_name }} *
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Last Name: {{ user_form.last_name }} *
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    ORCID: {{ profile_form.orcid }} {{ profile_form.orcid.help_text }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Interests: {{ profile_form.interests }} {{ profile_form.interests.help_text }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Subreddits: {{ profile_form.subreddits }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Affiliation: {{ profile_form.affiliation }} {{ profile_form.affiliation.help_text }}
-                </div>
-            </div>
-             <div class="row">
-                <div class="col col-margin">
-                    Linked In: {{ profile_form.linked_in }} {{ profile_form.linked_in.help_text }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Gender: {{ profile_form.gender }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Birth Date: {{ profile_form.birth_date }} {{ profile_form.birth_date.help_text }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    About Me: {{ profile_form.about_me }} {{ profile_form.about_me.help_text }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Tweet Ammount: {{ profile_form.tweet_ammount }} {{ profile_form.tweet_ammount.help_text }}
-                </div>
-            </div>
 
-            * -> Mandatory Fields
+            <div class="row" id="line">
+                    <div class="col" id="line">
+                        <div style="border-left:1140px solid #000;height:3px;border-color: #3EC28F"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-6" id="info">
+                        <div class="row">
+                            <div>
+                                <hr>
+                            </div>
+
+                            <div class="col">
+                               <b> Username:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ user.username }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b>ORCID:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ profile_form.orcid }} {{ profile_form.orcid.help_text }}
+                            </div>
+
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b> Email:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ user.email }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b>Affiliation:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ profile_form.affiliation }} {{ profile_form.affiliation.help_text }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b>Research Group:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ profile_form.research_group }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                               <b> Name:</b>
+                            </div>
+                            <div class="col">
+                                {{ user_form.first_name }} {{ user_form.last_name }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b>Gender:</b>
+                            </div>
+
+                            <div class="col">
+                                {{ profile_form.gender }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                               <b> Birth Date:</b>
+                            </div>
+                            <div class="col">
+                                {{ profile_form.birth_date }}
+                            </div>
+                        </div>
+
+                        <div class="row" id="margin">
+                            <div class="col">
+                              <b>  About Me:</b>
+                            </div>
+                            <div class="col">
+                                {{ profile_form.about_me }}
+                            </div>
+                        </div>
 
 
+                        <div class="row" id="margin">
+                            <div class="col">
+                              <b>Linked in:</b>
+                            </div>
+                            <div class="col">
+                               {{ profile_form.linked_in }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {% if not user.profile.tweet_access_token %}
+                                    <b>Twitter: </b><a href="{% url 'login_twitter' %}">Login</a>
+                                {% else %}
+                                   <b>Twitter: </b><a href="{% url 'reset_twitter' %}">Logout</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row" id="margin">
+                            <div class="col">
+                                    {% if not user.profile.reddit_token %}
+                                        <b>Reddit: </b><a href="/reddit_auth">Login</a>
+                                    {% else %}
+                                       <b>Reddit: </b><a href="/reset_reddit">Logout</a>
+                                    {% endif %}
+                            </div>
+                        </div>
 
-            <div class="row">
-                <div class="col col-margin">
-                    {% if not user.profile.tweet_access_token %}
-                        Twitter : <a href="{% url 'login_twitter' %}">Login</a>
-                    {% else %}
-                        Twitter: <a href="{% url 'reset_twitter' %}">Logout</a>
-                    {% endif %}
+                        <div class="row" id="margin">
+                            <div class="col">
+                                <b>Research Interests: </b>
+                            </div>
+                            <div class="col">
+                                {{ profile_form.interests }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                               <b>SubReddits: </b>
+                            </div>
+                            <div class="col">
+                                {{ profile_form.subreddits }}
+                            </div>
+                        </div>
 
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col col-margin">
-                    {% if not user.profile.reddit_token %}
-                        Reddit: <a href="/reddit_auth">Login</a>
-                    {% else %}
-                        Reddit: <a href="/reset_reddit">Logout</a>
-                    {% endif %}
+                        <div class="row" id="margin">
+                            <div class="col col-margin">
+                                <b>Tweet Ammount:</b>
+                            </div>
+                            <div class="col">
+                                 {{ profile_form.tweet_ammount }} {{ profile_form.tweet_ammount.help_text }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-margin">
+                                <b>Show Tweets in home page:</b> {{ profile_form.show_twitter }}
+                                <p>
+                                <b>Show Reddit posts in home page:</b> {{ profile_form.show_reddit }}
+                                {{ profile_form.twitter_account }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-margin">
+                                <button type="submit" value="submit" class="lab-btn">Save</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <div class="row">
-                <div class="col col-margin">
-                    Reddit Account: {{ profile_form.reddit_account }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    Show tweets in home page: {{ profile_form.show_twitter }}
-                    <p>
-                    Show reddit posts in home page: {{ profile_form.show_reddit }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-margin">
-                    <button type="submit" value="submit" class="lab-btn">Submit</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    {% endblock %}
-</body>
+        </form>
+        {% endblock %}
+    </body>
 </html>

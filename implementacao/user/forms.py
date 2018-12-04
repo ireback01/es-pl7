@@ -48,13 +48,14 @@ class ProfileForm(forms.ModelForm):
     CHOICES = [('Male', 'male'),
                ('Female', 'female')]
 
-    interests    = forms.CharField(max_length=256, required=False, help_text='*')
+    interests    = forms.CharField(max_length=256, required=False)
     subreddits = forms.CharField(max_length=512, required=False)
     affiliation  = forms.CharField(max_length=30, required=True, help_text='*')
+    research_group = forms.CharField(max_length=30, required=True, help_text='*')
     linked_in    = forms.URLField(required=False, help_text='Insert Linked In url')
     image        = forms.ImageField(required=False)
     orcid        = forms.CharField(max_length=19, required=True, help_text='*')
-    birth_date   = forms.DateField(required=False,  help_text='Format: yyyy-mm-dd')
+    birth_date   = forms.DateField(required=True,  help_text='Format: yyyy-mm-dd')
     gender       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),required=False)
     about_me     = forms.CharField(max_length=300, help_text='Max: 300 letters', required=False)
     tweet_ammount= forms.IntegerField(required=True, help_text='* Ammount of Tweets per Interest: 1-20')
@@ -67,6 +68,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             'affiliation',
+            'research_group',
             'linked_in',
             'image',
             'orcid',

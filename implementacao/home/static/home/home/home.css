@@ -1,5 +1,5 @@
 header{
-    background-color: #BCFBBA;
+    background-color: #DEF5E1;
     padding-top: 15px;
     padding-bottom: 15px;
     position: fixed;
@@ -8,80 +8,17 @@ header{
     z-index:1;
 }
 main {
-    margin-top: 30px;
-
+    margin-top: 7%;
+    background-color: #F5F5F5;
 }
-.lab-btn-dark {
-    background-color: #009740;
-    color: white;
-    border-style: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 150px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.lab-btn-dark:hover {
-    -webkit-animation-name: color-effect;
-    -webkit-animation-duration: 2.5s;
-    animation-name: color-effect;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-}
-@-webkit-keyframes color-effect{
-    from{background-color: #009740;} 
-    to{background-color: #00A648;}
-}
-@keyframes color-effect{
-    from{background-color: #009740;} 
-    to{background-color: #00A648;}
-}
-.lab-btn-dark:focus {
-    outline : 0;
-    -moz-outline : 0;
-    border : 0;
-}
-.lab-btn {
-    background-color: #93C020;
-    color: white;
-    border-style: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 150px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.lab-btn:hover {
-    -webkit-animation-name: color-effect;
-    -webkit-animation-duration: 2.5s;
-    animation-name: color-effect;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-}
-@-webkit-keyframes color-effect{
-    from{background-color: #93C020;} 
-    to{background-color: #98CA22;}
-}
-@keyframes color-effect{
-    from{background-color: #93C020;} 
-    to{background-color: #98CA22;}
-}
-.lab-btn:focus {
-    outline : 0;
-    -moz-outline : 0;
-    border : 0;
+html{
+    background-color: #F5F5F5;
 }
 .col-margin {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-#space{
-    height:50px;
-}
+
 .icon {
     height: 24px;
     width:  24px;
@@ -103,4 +40,92 @@ main {
 .header_icon{
     height: 35px;
     width: 35px;
+}
+
+.modal-title{
+    color: #3EC28F;
+}
+.modal-body{
+    width: 500px;
+    height:400px;
+    background-color: #F5F5F5 ;
+}
+
+.modal-btn{
+    background-color: #F5F5F5;
+}
+
+.space{
+    height:20%;
+}
+.last-space{
+    height:10%;
+}
+
+#space{
+    height:5%;
+}
+
+.lab-input {
+	border: none;
+	border-bottom: 1px solid #747474;
+    background-image: none;
+    background-color: #f5f5f5;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    max-width: 256px;
+    width: 100%;
+}
+.lab-input:focus {
+	outline : 0;
+	-moz-outline : 0;
+}
+
+.lab-btn {
+    background-color: #3ec290;
+    color: #747474 !important;
+    border-style: none;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+    max-width: 128px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.lab-btn:hover {
+    -webkit-animation-name: color-effect;
+    -webkit-animation-duration: 1.0s;
+    animation-name: color-effect;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+@-webkit-keyframes color-effect{
+    from{background-color: #3ec290; color: #747474;}
+    to{background-color: #ddf4e1; color: #4fc798;}
+}
+@keyframes color-effect{
+    from{background-color: #3ec290; color: #747474;}
+    to{background-color: #ddf4e1; color: #4fc798;}
+}
+.lab-btn:focus {
+    outline : 0;
+    -moz-outline : 0;
+    border : 0;
+}
+
+.inv-input{
+    opacity:0;
+}
+.hide_me{
+    display: none;
 }

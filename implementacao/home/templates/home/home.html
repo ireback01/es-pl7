@@ -1,149 +1,304 @@
 {% load static %}
 <html>
-    <head>
-        <link rel="stylesheet" href="{% static 'home/home/home.css' %}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#p_tweet').submit(function() { // catch the form's submit event
-        $.ajax({ // create an AJAX call...
-            data: $(this).serialize(), // get the form data
-            type: $(this).attr('method'), // GET or POST
-            url: $(this).attr('action'), // the file to call
-            success: function(response) { // on success..
-                $('#success_div').html(response); // update the DIV
-            },
-            error: function(e, x, r) { // on error..
-                $('#error_div').html(e); // update the DIV
-            }
+<head>
+    <link rel="stylesheet" href="{% static 'home/home/home.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#p_tweet').submit(function () { // catch the form's submit event
+                $.ajax({ // create an AJAX call...
+                    data: $(this).serialize(), // get the form data
+                    type: $(this).attr('method'), // GET or POST
+                    url: $(this).attr('action'), // the file to call
+                    success: function (response) { // on success..
+                        $('#success_div').html(response); // update the DIV
+                    },
+                    error: function (e, x, r) { // on error..
+                        $('#error_div').html(e); // update the DIV
+                    }
+                });
+                return false;
+            });
         });
-        return false;
-    });
-});
-</script>
-        <script type="text/javascript">
-$(document).ready(function() {
-    $('#p_bookmark').submit(function() { // catch the form's submit event
-        $.ajax({ // create an AJAX call...
-            data: $(this).serialize(), // get the form data
-            type: $(this).attr('method'), // GET or POST
-            url: $(this).attr('action'), // the file to call
-            success: function(response) { // on success..
-                $('#success_div').html(response); // update the DIV
-            },
-            error: function(e, x, r) { // on error..
-                $('#error_div').html(e); // update the DIV
-            }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#p_bookmark').submit(function () { // catch the form's submit event
+                $.ajax({ // create an AJAX call...
+                    data: $(this).serialize(), // get the form data
+                    type: $(this).attr('method'), // GET or POST
+                    url: $(this).attr('action'), // the file to call
+                    success: function (response) { // on success..
+                        $('#success_div').html(response); // update the DIV
+                    },
+                    error: function (e, x, r) { // on error..
+                        $('#error_div').html(e); // update the DIV
+                    }
+                });
+                return false;
+            });
         });
-        return false;
-    });
-});
-</script>
+    </script>
+    <script>
+        function onload() {
+            // aqui colocas todos os elementos com ids diferentes
+            let link_input = document.getElementById("id_link");
+            if (link_input != null) {
+                link_input.placeholder = "Link";
+                link_input.classList.add("lab-input");
+            }
+            let description_input = document.getElementById("id_description");
+            if (description_input != null) {
+                description_input.placeholder = "Max: 100 chars";
+                description_input.classList.add("lab-input");
+            }
+            let hashtags_input = document.getElementById("id_interests");
+            if (hashtags_input != null) {
+                hashtags_input.placeholder = "Interests";
+                hashtags_input.classList.add("lab-input");
+            }
+            let text_input = document.getElementById("id_text");
+            if (text_input != null) {
+                text_input.placeholder = "Max Chars: 150";
+                text_input.classList.add("lab-input");
+            }
+            let research_group_input = document.getElementById("profile_research_group");
+            if (research_group_input != null) {
+                research_group_input.placeholder = "URL of Research Group";
+                research_group_input.classList.add("lab-input");
+            }
+            let first_name_input = document.getElementById("id_first_name");
+            if (first_name_input != null) {
+                first_name_input.placeholder = "First Name";
+                first_name_input.classList.add("lab-input");
+            }
+            let last_name_input = document.getElementById("id_last_name");
+            if (last_name_input != null) {
+                last_name_input.placeholder = "Last Name";
+                last_name_input.classList.add("lab-input");
+            }
+            let birth_date_input = document.getElementById("profile_birth_date");
+            if (birth_date_input != null) {
+                birth_date_input.placeholder = "Format: yyyy-mm-dd";
+                birth_date_input.classList.add("lab-input");
+            }
+            let about_me_input = document.getElementById("profile_about_me");
+            if (about_me_input != null) {
+                about_me_input.placeholder = "Max Chars: 300";
+                about_me_input.classList.add("lab-input");
+            }
+            let linked_in_input = document.getElementById("profile_linked_in");
+            if (link_input != null) {
+                linked_in_input.placeholder = "linkedIN URL";
+                linked_in_input.classList.add("lab-input");
 
-    </head>
-    <body>
-        <header class="container-fluid header" style="margin-bottom: 40px;">
-            {% if user.is_authenticated %}
-            <div class="row" align="center">
-                <div class="col-1 my-auto">
-                    <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
-                </div>
-                <div class="col-10 my-auto">
-                    <div class="row" align="right">
-                        <div class="col my-auto">
-                            {% if request.user.profile.image != '' %}
-                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}" width="24"></a>
-                            {% else %}
-                            <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
-                            {% endif %}
-                        </div>
-                        <div class="col-1 my-auto">
-                            <input type="image" src="{% static 'home/home/icons/blog.png' %}" data-toggle="modal" data-target="#post_tweet" class="header_icon"/>
-                        </div>
-                        <div class="col-1 my-auto">
-                           <a href="/bookmarks"> <input type="image" src="{% static 'home/home/icons/notebook.png' %}" class="header_icon"/></a>
-                        </div>
-                         <div class="col-1 my-auto">
-                             <input type="image" src="{% static 'home/home/icons/notebookAdd.png' %}" data-toggle="modal" data-target="#post_bookmark" class="header_icon"/>
-                        </div>
-                        <div class="col-1 my-auto">
-                            <a href="/logout"><img src="{% static 'home/home/icons/logout.png' %}" class="header_icon"></a>
-                        </div>
-                    </div>
-                    
-                </div>
+            }
+            let interests_input = document.getElementById("profile_interests");
+            if (interests_input != null) {
+                interests_input.placeholder = "Format: #example #example2";
+                interests_input.classList.add("lab-input");
+            }
+            let subreddits_input = document.getElementById("profile_subreddits");
+            if (subreddits_input != null) {
+                subreddits_input.placeholder = "Format: example example2";
+                subreddits_input.classList.add("lab-input");
+            }
+            let twitter_account_input = document.getElementById("profile_twitter_account");
+            if (twitter_account_input != null) {
+                twitter_account_input.classList.add("inv-input");
+            }
+        }
+    </script>
+</head>
+
+<body onload="onload()">
+<header class="container-fluid header" style="margin-bottom: 40px;">
+    {% if user.is_authenticated %}
+        <div class="row" align="center">
+            <div class="col-1 my-auto">
+                <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
             </div>
-            {% endif %}           
-        </header>
-        <div id="space"></div>
+            <div class="col-10 my-auto">
+                <div class="row" align="right">
+                    <div class="col my-auto">
+                        {% if request.user.profile.image != '' %}
+                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}"
+                                                                                     width="24"></a>
+                        {% else %}
+                            <a href="{% url 'profile' request.user.username %}"><img
+                                    src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-1 my-auto">
+                        <input type="image" src="{% static 'home/home/icons/blog.png' %}" data-toggle="modal"
+                               data-target="#post_tweet" class="header_icon"/>
+                    </div>
+                    <div class="col-1 my-auto">
+                        <a href="/bookmarks"> <input type="image" src="{% static 'home/home/icons/notebook.png' %}"
+                                                     class="header_icon"/></a>
+                    </div>
+                    <div class="col-1 my-auto">
+                        <input type="image" src="{% static 'home/home/icons/notebookAdd.png' %}" data-toggle="modal"
+                               data-target="#post_bookmark" class="header_icon"/>
+                    </div>
+                    <div class="col-1 my-auto">
+                        <a href="/logout"><img src="{% static 'home/home/icons/logout.png' %}" class="header_icon"></a>
+                    </div>
+                </div>
 
-        <main>
-            {% block content %}
-            
-            {% endblock %}
-        </main>
+            </div>
+        </div>
+    {% endif %}
+</header>
+
+<main>
+    {% block content %}
+
+    {% endblock %}
+</main>
 
 <!-- Tweet Modal -->
-<div class="modal fade" id="post_tweet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Tweet</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+<div class="modal fade" id="post_tweet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container container-modal">
+                    <div class="space"></div>
+                    {% if request.user.profile.tweet_access_token != "" %}
+                        <div class="row" align="center">
+                            <div class="col">
+                                <h3 class="modal-title">Create Tweet</h3>
+                            </div>
+                        </div>
+                        <form enctype='multipart/form-data' id="p_tweet" method="POST" action="{% url 'post_tweet' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-4">
+                                    Text:
+                                </div>
+                                <div class="col">
+                                    {{ tweet_form.text }}
+                                </div>
+                            </div>
+                            <div id="space"></div>
+                            <div class="row">
+                                <div class="col-3">
+                                    Image:
+                                </div>
+                                <div class="col">
+                                    {{ tweet_form.image }}
+                                </div>
 
-          {% if request.user.profile.tweet_access_token != "" %}
-              <form enctype='multipart/form-data' id = "p_tweet" method="POST" action="{% url 'post_tweet' %}">
-                    {% csrf_token %}
-                    <div>Text : {{ tweet_form.text }}  {{ tweet_form.text.help_text }}</div>
+                            </div>
+                            <div class="last-space"></div>
+                            <div class="row">
+                                <div class="col" align="center">
+                                    <button type="submit" value="submit" class="lab-btn">Submit</button>
+                                    <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="row" align="center">
+                            <div class="col">
+                                <h2 class="modal-title">Error</h2>
+                            </div>
+                        </div>
+                        <div class="last-space"></div>
+                        <div class="row" align="center">
+                            <div class="col">
+                                <h1>
+                                    <small>Twitter Account Association Needed</small>
+                                </h1>
+                            </div>
+                        </div>
 
-                    <div>Image : {{ tweet_form.image }}  </div>
-                    <button type="submit" value="submit"> Submit </button>
-              </form>
-          {% else %}
-                Twitter Account Association Needed
-          {% endif %}
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+                        <div class="last-space"></div>
+                        <div class="row" align="center">
+                            <div class="col">
+                                <a href="{% url 'profile' request.user.username %}">
+                                    <button type="button" class="lab-btn"> Profile</button>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Bookmark Modal -->
-<div class="modal fade" id="post_bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Bookmark</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <form id = "p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
-            {% csrf_token %}
-            <div>Link : {{ bookmark_form.link }} </div>
+<div class="modal fade" id="post_bookmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container container-modal">
+                    <div class="row" align="center">
+                        <div class="col">
+                            <h3 class="modal-title">Create Bookmark</h3>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    <form id="p_bookmark" method="POST" action="{% url 'new_bookmark' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-4">
+                                Link:
+                            </div>
+                            <div class="col">
+                                {{ bookmark_form.link }}
+                            </div>
+                        </div>
 
-            <div>Description : {{ bookmark_form.description }} Max: 100 chars </div>
-            <div>Hashtags : {{ bookmark_form.interests }} </div>
-            <button type="submit">Create</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+                        <div id="space"></div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                Description:
+                            </div>
+                            <div class="col">
+                                {{ bookmark_form.description }}
+                            </div>
+                        </div>
+
+                        <div id="space"></div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                Hashtags:
+                            </div>
+                            <div class="col">
+                                {{ bookmark_form.interests }}
+                            </div>
+                        </div>
+
+                        <div class="last-space"></div>
+                        <div class="row">
+                            <div class="col" align="center">
+                                <button type="submit" value="submit" class="lab-btn"> Submit</button>
+                                <button type="button" class="lab-btn" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-    </body>
+</body>
 </html>
