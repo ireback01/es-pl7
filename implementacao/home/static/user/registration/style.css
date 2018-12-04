@@ -1,82 +1,79 @@
 body {
-    background: rgba(188,251,186,1);
-    background: -moz-linear-gradient(top, rgba(188,251,186,1) 0%, rgba(102,191,146,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(188,251,186,1)), color-stop(100%, rgba(102,191,146,1)));
-    background: -webkit-linear-gradient(top, rgba(188,251,186,1) 0%, rgba(102,191,146,1) 100%);
-    background: -o-linear-gradient(top, rgba(188,251,186,1) 0%, rgba(102,191,146,1) 100%);
-    background: -ms-linear-gradient(top, rgba(188,251,186,1) 0%, rgba(102,191,146,1) 100%);
-    background: linear-gradient(to bottom, rgba(188,251,186,1) 0%, rgba(102,191,146,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bcfbba', endColorstr='#66bf92', GradientType=0 );
+    background: #f5f5f5 !important;
+    color: 747474 !important;
+}
+h2 {
+	color: #3ec290 !important;
 }
 a {
-	color: #60B48A !important;
+	color: #3ec290 !important;
 }
-h1 {
-	padding-top: 30px;
-	padding-bottom: 30px;
-	text-align: center;
+form {
+	margin-bottom: 0;
 }
-.login-container {
-	background-color: #E1F5E3 !important;
-	max-width: 400px !important;
-	margin-top: 200px;
-	-webkit-box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
-	box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
+li {
+	list-style-type: none;
+	font-size: 13px;
 }
-.col-margin {
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-.lab-btn {
-	background-color: #60B48A;
-	color: white;
-	border-style: none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 30px;
-	padding-right: 30px;
-	cursor: pointer;
-	font-weight: bold;
-}
-.lab-btn:hover {
-	-webkit-animation-name: color-effect;
-    -webkit-animation-duration: 2.5s;
-    animation-name: color-effect;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-}
-@-webkit-keyframes color-effect{
-    from{background-color: #60B48A;} 
-    to{background-color: #98CA22;}
-}
-@keyframes color-effect{
-    from{background-color: #60B48A;} 
-    to{background-color: #98CA22;}
-}
-.lab-btn:focus {
-	outline : 0;
-	-moz-outline : 0;
-	border : 0;
+.full-height {
+	height: 100vh;
 }
 .logo {
-	width: 64px;
+	width: 128px;
 	margin-top: 24px;
 	margin-bottom: 24px;
 }
 .lab-input {
 	border: none;
+	border-bottom: 1px solid #747474;
     background-image: none;
-    background-color: #C4F6C5;
+    background-color: #f5f5f5;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 20px;
     padding-right: 20px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    max-width: 256px;
+    width: 100%;
 }
 .lab-input:focus {
+	outline : 0;
+	-moz-outline : 0;
+}
+.lab-btn {
+	background-color: #3ec290;
+	color: #747474 !important;
+	border-style: none;
+	border-radius: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	cursor: pointer;
+	max-width: 256px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.lab-btn:hover {
+	-webkit-animation-name: color-effect;
+    -webkit-animation-duration: 1.0s;
+    animation-name: color-effect;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+@-webkit-keyframes color-effect{
+    from{background-color: #3ec290; color: #747474;} 
+    to{background-color: #ddf4e1; color: #4fc798;}
+}
+@keyframes color-effect{
+	from{background-color: #3ec290; color: #747474;} 
+    to{background-color: #ddf4e1; color: #4fc798;}
+}
+.lab-btn:focus {
 	outline : 0;
 	-moz-outline : 0;
 	border : 0;

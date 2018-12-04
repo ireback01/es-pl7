@@ -48,6 +48,7 @@
                 return false;
             });
         });
+<<<<<<< HEAD
     </script>
     <script>
         function onload() {
@@ -119,47 +120,75 @@
             }
         }
     </script>
+    <script type="text/javascript">
+      // i'm not proud of this code
+      function hoverProfile(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/profile_hover.png' %}");
+      }
+      function unhoverProfile(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/profile.png' %}");
+      }
+      function hoverPost(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/post_hover.png' %}");
+      }
+      function unhoverPost(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/post.png' %}");
+      }
+      function hoverBookmarks(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/bookmarks_hover.png' %}");
+      }
+      function unhoverBookmarks(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/bookmarks.png' %}");
+      }
+      function hoverAddBookmark(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/add_bookmark_hover.png' %}");
+      }
+      function unhoverAddBookmark(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/add_bookmark.png' %}");
+      }
+      function hoverLogout(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/logout_hover.png' %}");
+      }
+      function unhoverLogout(element) {
+        element.setAttribute("src", "{% static 'home/home/icons/logout.png' %}");
+      }
+    </script>
 </head>
 
 <body onload="onload()">
-<header class="container-fluid header" style="margin-bottom: 40px;">
-    {% if user.is_authenticated %}
-        <div class="row" align="center">
-            <div class="col-1 my-auto">
-                <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
-            </div>
-            <div class="col-10 my-auto">
-                <div class="row" align="right">
-                    <div class="col my-auto">
-                        {% if request.user.profile.image != '' %}
-                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}"
-                                                                                     width="24"></a>
-                        {% else %}
-                            <a href="{% url 'profile' request.user.username %}"><img
-                                    src="{% static '/home/home/icons/profile.png' %}" class="icon"></a>
-                        {% endif %}
-                    </div>
-                    <div class="col-1 my-auto">
-                        <input type="image" src="{% static 'home/home/icons/blog.png' %}" data-toggle="modal"
-                               data-target="#post_tweet" class="header_icon"/>
-                    </div>
-                    <div class="col-1 my-auto">
-                        <a href="/bookmarks"> <input type="image" src="{% static 'home/home/icons/notebook.png' %}"
-                                                     class="header_icon"/></a>
-                    </div>
-                    <div class="col-1 my-auto">
-                        <input type="image" src="{% static 'home/home/icons/notebookAdd.png' %}" data-toggle="modal"
-                               data-target="#post_bookmark" class="header_icon"/>
-                    </div>
-                    <div class="col-1 my-auto">
-                        <a href="/logout"><img src="{% static 'home/home/icons/logout.png' %}" class="header_icon"></a>
+
+    <header class="container-fluid header" style="margin-bottom: 40px;">
+        {% if user.is_authenticated %}
+            <div class="row" align="center">
+                <div class="col-1 my-auto">
+                    <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
+                </div>
+                <div class="col-10 my-auto">
+                    <div class="row" align="right">
+                        <div class="col my-auto">
+                            {% if request.user.profile.image != '' %}
+                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}" class="header_icon"></a>
+                            {% else %}
+                            <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="header_icon" onmouseover="hoverProfile(this);" onmouseout="unhoverProfile(this);"></a>
+                            {% endif %}
+                        </div>
+                        <div class="col-1 my-auto">
+                            <img src="{% static 'home/home/icons/post.png' %}" data-toggle="modal" data-target="#post_tweet" class="header_icon" onmouseover="hoverPost(this);" onmouseout="unhoverPost(this);"/>
+                        </div>
+                        <div class="col-1 my-auto">
+                           <a href="/bookmarks"> <input type="image" src="{% static 'home/home/icons/bookmarks.png' %}" class="header_icon" onmouseover="hoverBookmarks(this);" onmouseout="unhoverBookmarks(this);"/></a>
+                        </div>
+                         <div class="col-1 my-auto">
+                             <input type="image" src="{% static 'home/home/icons/add_bookmark.png' %}" data-toggle="modal" data-target="#post_bookmark" class="header_icon" onmouseover="hoverAddBookmark(this);" onmouseout="unhoverAddBookmark(this);"/>
+                        </div>
+                        <div class="col-1 my-auto">
+                            <a href="/logout"><img src="{% static 'home/home/icons/logout.png' %}" class="header_icon" onmouseover="hoverLogout(this);" onmouseout="unhoverLogout(this);"></a>
+                        </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-    {% endif %}
-</header>
+        {% endif %}
+    </header>
 
 <main>
     {% block content %}

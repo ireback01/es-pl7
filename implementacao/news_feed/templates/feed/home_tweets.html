@@ -15,6 +15,12 @@
                                 <div class="col-1">
                                     <a href="https://twitter.com/{{ post.user.screen_name }}" target="_blank"><img src="{{ post.user.profile_image_url }}" class="avatar-frame"></a>
                                 </div>
+                                <div class="col-3 my-auto">
+                                    <h4>{{ post.user.name }}</h4>
+                                </div>
+                                <div class="col-8" align="right">
+                                    <a href="https://twitter.com/{{ post.user.screen_name }}/status/{{ post.id_str }}" target="_blank"><button class="lab-btn">Link Original</button></a>
+                                </div>
                             </div>
                             <div class="row" style="margin-bottom: 15px;">
                                 <div class="col">
@@ -28,11 +34,6 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                            <div class="row">
-                                <div class="col" align="right">
-                                    <a href="https://twitter.com/{{ post.user.name }}/status/{{ post.id_str }}" target="_blank">Link</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% else %}
@@ -42,8 +43,11 @@
                                 <div class="col-1">
                                     <a href="https://www.reddit.com/user/{{ post.author.name }}" target="_blank"><img src="{{ post.author.icon_img }}" class="avatar-frame"></a>
                                 </div>
-                                <div class="col-11 my-auto">
-                                    <h4>{{ post.title }}</h4>
+                                <div class="col-3 my-auto">
+                                    <h4>{{ post.author.name }}</h4>
+                                </div>
+                                <div class="col-8" align="right">
+                                    <a href="{{ post.url }}" target="_blank"><button class="lab-btn">Link Original</button></a>
                                 </div>
                             </div>
                             <div class="row">
@@ -53,11 +57,6 @@
                                     {% else %}
                                     <img src="{{ post.url }}" class="post-image">
                                     {% endif %}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col" align="right">
-                                    <a href="{{ post.url }}" target="_blank">Link</a>
                                 </div>
                             </div>
                         </div>
