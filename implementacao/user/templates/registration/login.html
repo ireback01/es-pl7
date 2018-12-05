@@ -16,54 +16,58 @@
         </script>
     </head>
     <body onload="load()">
-
-        <form method="post">
-            {% csrf_token %}
-            <div class="container login-container" align="center">
-                <div class="row">
-                    <div class="col">
-                        <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
+        <div class="container full-height" align="center">
+            <div class="row full-height">
+                <div class="col-6 my-auto">
+                    <div class="row">
+                        <div class="col">
+                            <a href="/"><img src="{% static 'home/home/icons/logo.png' %}" class="logo"></a>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+                        <div class="col">
+                            <h2>Welcome back!</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span>To keep connected with us please login.</span>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col" style="margin-bottom: 5px;">
-                        {% if form.erros%}
-                        <span>There are errors on this form!</span>
-                        {%endif%}
-
-                        {%if next%}
-                        <span>You are not logged in yet</span>
-                        {%endif%}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-margin">
-                        {{ form.username }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-margin">
-                        {{ form.password }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-margin">
-                        <input class="lab-btn" type="submit" value="Login">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-margin" style="margin-top: 24px;">
-                        <span>Forgot password? <a href="{% url 'password_reset' %}">Click here to reset</a>.</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-margin" style="margin-bottom: 24px;">
-                        <span>You don't have an account? <a href="{% url 'register' %}">Register here</a>.</span>
+                <div class="col-6 my-auto">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="margin-top: 5px; margin-bottom: 30px;">
+                                <a href="{% url 'password_reset' %}" style="font-size: 12px;">Forgot your password?</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input class="lab-btn" type="submit" value="Login">
+                            </div>
+                        </div>
+                        <input type="hidden" name="next" value = "{{ next }}">
+                    </form>
+                    <div class="row">
+                        <div class="col">
+                            <span style="color: #3ec290;">Don't have an account? <a href="{% url 'register' %}"><b>Sign up</b></a></span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="next" value = "{{ next }}">
-        </form>
+        </div>
+            
     </body>
 </html>
-

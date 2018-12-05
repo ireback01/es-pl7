@@ -1,0 +1,29 @@
+
+.label_img{
+    width: 120px;
+    height:120px;
+    border: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: #3EC28F;
+}
+
+#info{
+    margin-left: 7%;
+}
+
+#line{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.test {
+    background-color: olive;
+}
+#input[type=text] {
+    border: none;
+    background-color: olive;
+}
+#margin{
+    margin-top:4%;
+}

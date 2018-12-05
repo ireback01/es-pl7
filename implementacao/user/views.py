@@ -102,7 +102,7 @@ def edit_profile(request):
 		if request.user.profile.interests is not None:
 			for interest in request.user.profile.interests.all():
 				string = string + str(interest) + " "
-		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
+		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string}, auto_id="profile_%s")
 		user_form = EditProfileForm(instance = request.user)
 		args = {
 			'user_form': user_form,
@@ -132,7 +132,9 @@ def create_bookmark(request):
 
 	bookmark_form = BookmarkForm()
 	tweet_form = TweetForm()
-	return redirect('/')
+	next = request.POST.get('next', '/')
+	return HttpResponseRedirect(next)
+
 @login_required
 def index_bookmarks(request):
 	tweet_form = TweetForm()
@@ -151,25 +153,25 @@ def reddit_auth(request):
 def store_reddit_token(request):
 	reddit = praw.Reddit(user_agent='labsync_pl7', client_id='h5QaB1Br2EWxoA', client_secret='BIUqL96PLsZy3vv5oiEyjERK4rc', redirect_uri='http://127.0.0.1:8000/store_reddit_token')
 	refresh_token = reddit.auth.authorize(request.GET.get('code'))
-	profile = request.user.profile
-	profile.reddit_token = refresh_token
-	profile.save(update_fields=["reddit_token"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.reddit_token = refresh_token
+	profile_user.save(update_fields=["reddit_token"])
+	return profile(request, request.user.username)
 
 @login_required
 def reset_reddit(request):
-	profile = request.user.profile
-	profile.reddit_token = ''
-	profile.save(update_fields=["reddit_token"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.reddit_token = ''
+	profile_user.save(update_fields=["reddit_token"])
+	return profile(request, request.user.username)
 
 @login_required
 def reset_twitter(request):
-	profile = request.user.profile
-	profile.tweet_access_token = ""
-	profile.tweet_access_token_secret = ""
-	profile.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
-	return redirect('/')
+	profile_user = request.user.profile
+	profile_user.tweet_access_token = ""
+	profile_user.tweet_access_token_secret = ""
+	profile_user.save(update_fields=["tweet_access_token", "tweet_access_token_secret"])
+	return profile(request, request.user.username)
 
 @login_required
 def login_twitter(request):
@@ -239,5 +241,5 @@ def post_tweet(request):
 
 			else:
 				api.update_status(tweet_form.cleaned_data.get('text'))
-
-	return redirect('/')
+	next = request.POST.get('next', '/')
+	return HttpResponseRedirect(next)
