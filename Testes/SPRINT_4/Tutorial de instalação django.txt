@@ -1,0 +1,21 @@
+Tutorial de instalação do ambiente de aplicação:
+	
+	instalar python 3.5.2 (não esquecer de clickar na box onde diz: Add Pyhton 3.5 to PATH)
+	
+	abrir cmd:
+	
+		- instalar django (correr:pip install django)
+		
+	abrir o cmd e ir para a pasta onde se situa o file manage.py
+	
+	efetuar os seguintes comandos:
+		
+		-python manage.py makemigrations
+		
+			aqui poderá ser necessário instalar outras packages, vejam os erros e façam pip install (nome do package em falta)
+			voltar a correr -python manage.py makemigrations até não haver erros.
+			
+		-python manage.py migrate
+		
+		-python manage.py runserver
+	
