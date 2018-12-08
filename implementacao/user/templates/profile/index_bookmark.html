@@ -3,22 +3,22 @@
 
 {% block content %}
     <head>
-        <link rel="stylesheet" href="{% static 'user/profile/tweet.css' %}">
+        <link rel="stylesheet" href="{% static 'user/profile/bookmarks.css' %}">
     </head>
     <body>
-        {% for bk in bookmarks %}
-            <a href = {{ bk.link }}>
-                <div id="link">
-                    {{bk.link}}
-                </div>
-            </a>
-            <div id= 'tweet'>
-                    <p>{{ bk.description }}</p>
+        <div class="container bookmarks-container">
+            {% for bk in bookmarks %}
+            <div class="row" style="margin-top: 20px;">
+                <span>{{ bk.description }}</span>
             </div>
-            <div id='hashtags'>
-                {{ bk.interests }}
+            <div class="row">
+                <span>{{ bk.interests }}</span>
             </div>
-        {% endfor %}
+            <div class="row" style="margin-bottom: 20px;">
+                <a href="{{ bk.link }}">{{ bk.link }}</a>
+            </div>
+            {% endfor %}
+        </div>
     </body>
 
 {% endblock %}
