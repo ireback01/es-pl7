@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col my-auto" align="left">
-                        <h5>{{ user.username }}</h5>
+                        <h5>{{ request.user.username }}</h5>
                     </div>
                 </div>
 
@@ -62,37 +62,7 @@
                             </div>
 
                             <div class="col">
-                                {{ user.username }}
-                            </div>
-                        </div>
-
-                        <div class="row" id="margin">
-                            <div class="col">
-                                <b>ORCID:</b>
-                            </div>
-
-                            <div class="col">
-                                {{ profile_form.orcid }} {{ profile_form.orcid.help_text }}
-                            </div>
-                        </div>
-
-                        <div class="row" id="margin">
-                            <div class="col">
-                                <b> Email:</b>
-                            </div>
-
-                            <div class="col">
-                                {{ user.email }}
-                            </div>
-                        </div>
-
-                        <div class="row" id="margin">
-                            <div class="col">
-                                <b>Affiliation:</b>
-                            </div>
-
-                            <div class="col">
-                                {{ profile_form.affiliation }} {{ profile_form.affiliation.help_text }}
+                                {{ request.user.username }}
                             </div>
                         </div>
 
@@ -106,14 +76,6 @@
                             </div>
                         </div>
 
-                        <div class="row" id="margin">
-                            <div class="col">
-                               <b> Name:</b>
-                            </div>
-                            <div class="col">
-                                {{ user_form.first_name }} {{ user_form.last_name }}
-                            </div>
-                        </div>
 
                         <div class="row" id="margin">
                             <div class="col">

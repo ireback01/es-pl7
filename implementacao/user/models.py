@@ -7,11 +7,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Profile(models.Model):
     user         = models.OneToOneField(User, on_delete=models.CASCADE)
-    affiliation  = models.CharField(max_length=30, blank=True)
-    research_group = models.CharField(max_length=30, blank=True)
+    affiliation  = models.CharField(max_length=100, editable=False)
+    orcid		 = models.CharField(max_length=100, editable=False)
+
+    research_group = models.URLField(max_length=30, blank=True)
     linked_in    = models.URLField(max_length=256,blank=True)
     image        = models.ImageField(upload_to='images/', blank=True, null=True)
-    orcid		 = models.CharField(max_length=19, blank=True)
     subreddits	 = models.CharField(max_length=512, blank=True)
     gender       = models.CharField(max_length= 10, blank=True)
     birth_date   = models.DateField(default=date.today, blank=False)

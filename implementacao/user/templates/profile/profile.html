@@ -14,20 +14,18 @@
             <div class="row">
                 <div class="col" align="center">
                     {% if profile.image != '' %}
-                        <a href="{% url 'profile' user.username %}"><img src="/media/{{ profile.image }}" class="avatar"></a>
+                        <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}" class="avatar"></a>
                     {% else %}
-                        <a href="{% url 'profile' user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="avatar"></a>
+                        <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="avatar"></a>
                     {% endif %}
                 </div>
                 <div class="col my-auto" align="left">
-                    <h5>{{ user.username }}</h5>
+                    <h5>{{ request.user.username }}</h5>
                 </div>
                  <div class="col my-auto" align="center">
-                    {% if request.user.username == user.username %}
-                        <a href="{% url 'edit_profile' %}" id="changeColor">
-                            <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
-                        </a>
-                    {% endif %}
+                    <a href="{% url 'edit_profile' %}" id="changeColor">
+                        <input id="resize" type="image" src="{% static 'home/home/icons/edit.png' %}">
+                    </a>
                 </div>
             </div>
 
@@ -51,7 +49,7 @@
 
                     <div class="row">
                         <div class="col">
-                            {{ user.username }}
+                            {{ request.user.username }}
                         </div>
                     </div>
                     <div class="row" id="margin">
@@ -62,9 +60,21 @@
 
                     <div class="row">
                         <div class="col">
-                            {{ user.profile.orcid }}
+                            INSERT ORCID HERE
                         </div>
                     </div>
+
+                    <div class="row" id="margin">
+                        <div class="col">
+                           <b> Name:</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            INSERT ORCID HERE
+                        </div>
+                    </div>
+
 
                     <div class="row" id="margin">
                         <div class="col">
@@ -73,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            {{ user.profile.affiliation }}
+                            INSERT AFFILIATION HERE
                         </div>
                     </div>
 
@@ -99,16 +109,6 @@
                         </div>
                     </div>
 
-                    <div class="row" id="margin">
-                        <div class="col">
-                           <b> Name:</b>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {{ user.first_name }} {{ user.last_name }}
-                        </div>
-                    </div>
 
                     <div class="row" id="margin">
                         <div class="col">

@@ -2,13 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from user.forms import SignUp, ProfileForm, EditProfileForm, TweetForm
+from user.forms import SignUp, ProfileForm, TweetForm
 from django.http import HttpResponseRedirect
 from .models import Profile
 from django.contrib.auth.models import User
 from news_feed.models import Hashtag
-from news_feed.forms import BookmarkForm, HashtagForm #Custom register form
-from news_feed.models import Bookmark
+from news_feed.forms import BookmarkForm
 import praw
 from django.conf import settings
 from tweepy.auth import OAuthHandler
@@ -18,7 +17,7 @@ import tweepy
 @login_required
 def profile(request, username):
 	user = User.objects.get(username=username)
-	profile = Profile.objects.get(id=user.id)
+	profile = Profile.objects.get(id=user.profile.id)
 	tweet_form = TweetForm()
 	bookmark_form = BookmarkForm()
 	string = ""
@@ -54,7 +53,7 @@ def register(request):
 			user = authenticate(username=username, password=password) #takes care of hashing and so on
 			messages.info(request, 'User created with Success!')
 			login(request,user)
-			profile = Profile.objects.get(id=user.id)
+			profile = Profile.objects.get(id=user.profile.id)
 			arg={
 				'user':user,
 				'profile' : profile 
@@ -67,20 +66,18 @@ def register(request):
 @login_required
 def edit_profile(request):
 	#Processes 2 forms.. 1 Auth user and 1 custom model (profile)
-	profile = Profile.objects.get(id=request.user.id)
+	profile = Profile.objects.get(id=request.user.profile.id)
 	tweet_form = TweetForm()
 	bookmark_form = BookmarkForm()
 	if request.method == 'POST':
 		profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-		user_form = EditProfileForm(request.POST, instance=request.user)
 		args = {
-			'user_form': user_form,
 			'profile_form': profile_form,
 			'profile': profile,
 			'tweet_form': tweet_form,
 			'bookmark_form' : bookmark_form,
 		}
-		if profile_form.is_valid() and user_form.is_valid():
+		if profile_form.is_valid():
 			request.user.profile.interests.clear()
 			interests_string = profile_form.cleaned_data['interests'].strip()
 			if not interests_string == "":
@@ -93,7 +90,6 @@ def edit_profile(request):
 					request.user.profile.interests.add(bk)
 					request.user.save()
 			profile_form.save()
-			user_form.save()
 			return redirect('/')
 		else:
 			return render(request, 'profile/edit_profile.html', args)
@@ -103,9 +99,7 @@ def edit_profile(request):
 			for interest in request.user.profile.interests.all():
 				string = string + str(interest) + " "
 		profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string}, auto_id="profile_%s")
-		user_form = EditProfileForm(instance = request.user)
 		args = {
-			'user_form': user_form,
 			'profile_form': profile_form,
 			'profile': profile,
 			'tweet_form': tweet_form,
