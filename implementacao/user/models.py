@@ -27,6 +27,7 @@ class Profile(models.Model):
     tweet_request_token       = models.CharField(max_length=300, blank=True)
     tweet_access_token        = models.CharField(max_length=300, blank=True)
     tweet_access_token_secret = models.CharField(max_length=300, blank=True)
+    orcid_token = models.CharField(max_length=300, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -16,5 +16,7 @@ urlpatterns = [
     path('reset_twitter', views.reset_twitter, name='reset_twitter'),
     path('callback_url/', views.callback_url, name='callback'),
     path('post_tweet/', views.post_tweet, name='post_tweet'),
+    path('handle_orcid/', views.handle_orcid, name='handle_orcid'),
+    path('check_orcid/', views.check_orcid, name='check_orcid'),
     url('^', include('django.contrib.auth.urls')),
 ]
