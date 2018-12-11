@@ -80,7 +80,7 @@ def edit_profile(request):
             'tweet_form': tweet_form,
             'bookmark_form' : bookmark_form,
         }
-        if profile_form.is_valid() and user_form.is_valid():
+        if profile_form.is_valid():
             request.user.profile.interests.clear()
             interests_string = profile_form.cleaned_data['interests'].strip()
             if not interests_string == "":
@@ -93,7 +93,6 @@ def edit_profile(request):
                     request.user.profile.interests.add(bk)
                     request.user.save()
             profile_form.save()
-            user_form.save()
             return redirect('/')
         else:
             return render(request, 'profile/edit_profile.html', args)
