@@ -77,6 +77,8 @@ class PublicAPI(object):
         self._timeout = timeout
         self.raw_response = None
         self.do_store_raw_response = do_store_raw_response
+        self.SEARCH_VERSION = "/v2.0"
+        self.VERSION = "/v2.0"
         if sandbox:
             self._host = "sandbox.orcid.org"
             self._login_or_register_endpoint = \
@@ -399,7 +401,7 @@ class PublicAPI(object):
 
     def _get_public_info(self, orcid_id, request_type, access_token, put_code,
                          accept_type):
-        request_url = '%s/%s/%s' % (self._endpoint + VERSION,
+        request_url = '%s/%s/%s' % (self._endpoint + self.VERSION,
                                     orcid_id, request_type)
         if put_code:
             if request_type in self.TYPES_WITH_MULTIPLE_PUTCODES:
@@ -413,7 +415,7 @@ class PublicAPI(object):
 
     def _search(self, query, method, start, rows, headers,
                 endpoint):
-        url = endpoint + SEARCH_VERSION + \
+        url = endpoint + self.SEARCH_VERSION + \
                 "/search/?defType=" + method + "&q=" + query
         if start:
             url += "&start=%s" % start

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
 import tweepy
 from news_feed.forms import BookmarkForm #Custom register form
@@ -10,7 +10,8 @@ import pdb
 from user.forms import TweetForm
 from datetime import datetime
 
-@login_required
+@login_required(redirect_field_name=None)
+@user_passes_test(lambda u: u.profile.orcid_token != "", login_url='/logout/')
 def home_tweets(request):
 	tweet_form = TweetForm()
 	bookmark_form = BookmarkForm()
@@ -21,7 +22,7 @@ def home_tweets(request):
 
 	api = tweepy.API(auth)
 
-	profile = Profile.objects.get(id=request.user.id)
+	profile = Profile.objects.get(id=request.user.profile.id)
 	interests = profile.interests.all()
 	args_tweets = list()
 	args = list()
@@ -58,7 +59,7 @@ def home_tweets(request):
 
 	return render(request,'feed/home_tweets.html',{'args': merged_list, 'tweet_form': tweet_form, 'bookmark_form': bookmark_form})
 
-@login_required
+@login_required(redirect_field_name=None)
 def search_bookmarks(request, hashtag):
 	bookmark_list = Bookmark.objects.filter(hashtags__text == hashtag).distinct()
 	return bookmark_list

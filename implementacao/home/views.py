@@ -5,6 +5,6 @@ from news_feed.models import Bookmark
 from user.models import Profile
 from user.forms import TweetForm
 
-@login_required
+@login_required(redirect_field_name=None)
 def home(request):
 	return

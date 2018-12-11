@@ -10,6 +10,7 @@ class Profile(models.Model):
     affiliation  = models.CharField(max_length=30, blank=True)
     linked_in    = models.URLField(max_length=256,blank=True)
     image        = models.ImageField(upload_to='images/', blank=True, null=True)
+    research_group = models.CharField(max_length=30, blank=True)
     orcid		 = models.CharField(max_length=19, blank=True)
     subreddits	 = models.CharField(max_length=512, blank=True)
     gender       = models.CharField(max_length= 10, blank=True)
@@ -25,6 +26,7 @@ class Profile(models.Model):
     tweet_request_token       = models.CharField(max_length=300, blank=True)
     tweet_access_token        = models.CharField(max_length=300, blank=True)
     tweet_access_token_secret = models.CharField(max_length=300, blank=True)
+    orcid_token = models.CharField(max_length=300, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
