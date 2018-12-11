@@ -60,7 +60,7 @@
 
                     <div class="row">
                         <div class="col">
-                            INSERT ORCID HERE
+                            {{ request.user.profile.orcid }}
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            INSERT ORCID HERE
+                            {{ request.user.first_name }} {{ request.user.last_name}}
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            INSERT AFFILIATION HERE
+                            {{ request.user.profile.affiliation }}
                         </div>
                     </div>
 

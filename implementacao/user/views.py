@@ -74,9 +74,7 @@ def edit_profile(request):
     bookmark_form = BookmarkForm()
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        user_form = EditProfileForm(request.POST, instance=request.user)
         args = {
-            'user_form': user_form,
             'profile_form': profile_form,
             'profile': profile,
             'tweet_form': tweet_form,
@@ -105,9 +103,7 @@ def edit_profile(request):
             for interest in request.user.profile.interests.all():
                 string = string + str(interest) + " "
         profile_form = ProfileForm(instance = request.user.profile, initial = {'interests': string})
-        user_form = EditProfileForm(instance = request.user)
         args = {
-            'user_form': user_form,
             'profile_form': profile_form,
             'profile': profile,
             'tweet_form': tweet_form,

@@ -7,8 +7,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Profile(models.Model):
     user         = models.OneToOneField(User, on_delete=models.CASCADE)
-    affiliation  = models.CharField(max_length=100, editable=False)
-    orcid		 = models.CharField(max_length=100, editable=False)
+    affiliation  = models.CharField(max_length=100, blank=True)
+    orcid		 = models.CharField(max_length=100)
 
     research_group = models.URLField(max_length=30, blank=True)
     linked_in    = models.URLField(max_length=256,blank=True)
