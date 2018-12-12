@@ -1,0 +1,9 @@
+.bookmarks-container {
+	border: 2px solid #3ec290 !important;
+	border-radius: 5px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+a {
+	color: #3ec290 !important;
+}

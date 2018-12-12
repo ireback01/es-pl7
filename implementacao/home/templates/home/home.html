@@ -72,48 +72,39 @@
                 text_input.placeholder = "Max Chars: 150";
                 text_input.classList.add("lab-input");
             }
-            let research_group_input = document.getElementById("profile_research_group");
+            let research_group_input = document.getElementById("id_research_group");
             if (research_group_input != null) {
                 research_group_input.placeholder = "URL of Research Group";
                 research_group_input.classList.add("lab-input");
             }
-            let first_name_input = document.getElementById("id_first_name");
-            if (first_name_input != null) {
-                first_name_input.placeholder = "First Name";
-                first_name_input.classList.add("lab-input");
-            }
-            let last_name_input = document.getElementById("id_last_name");
-            if (last_name_input != null) {
-                last_name_input.placeholder = "Last Name";
-                last_name_input.classList.add("lab-input");
-            }
-            let birth_date_input = document.getElementById("profile_birth_date");
+
+            let birth_date_input = document.getElementById("id_birth_date");
             if (birth_date_input != null) {
                 birth_date_input.placeholder = "Format: yyyy-mm-dd";
                 birth_date_input.classList.add("lab-input");
             }
-            let about_me_input = document.getElementById("profile_about_me");
+            let about_me_input = document.getElementById("id_about_me");
             if (about_me_input != null) {
                 about_me_input.placeholder = "Max Chars: 300";
                 about_me_input.classList.add("lab-input");
             }
-            let linked_in_input = document.getElementById("profile_linked_in");
+            let linked_in_input = document.getElementById("id_linked_in");
             if (link_input != null) {
                 linked_in_input.placeholder = "linkedIN URL";
                 linked_in_input.classList.add("lab-input");
 
             }
-            let interests_input = document.getElementById("profile_interests");
+            let interests_input = document.getElementById("id_interests");
             if (interests_input != null) {
                 interests_input.placeholder = "Format: #example #example2";
                 interests_input.classList.add("lab-input");
             }
-            let subreddits_input = document.getElementById("profile_subreddits");
+            let subreddits_input = document.getElementById("id_subreddits");
             if (subreddits_input != null) {
                 subreddits_input.placeholder = "Format: example example2";
                 subreddits_input.classList.add("lab-input");
             }
-            let twitter_account_input = document.getElementById("profile_twitter_account");
+            let twitter_account_input = document.getElementById("id_twitter_account");
             if (twitter_account_input != null) {
                 twitter_account_input.classList.add("inv-input");
             }
@@ -166,7 +157,7 @@
                     <div class="row" align="right">
                         <div class="col my-auto">
                             {% if request.user.profile.image != '' %}
-                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ profile.image }}" class="header_icon"></a>
+                            <a href="{% url 'profile' request.user.username %}"><img src="/media/{{ request.user.profile.image }}" class="header_icon"></a>
                             {% else %}
                             <a href="{% url 'profile' request.user.username %}"><img src="{% static '/home/home/icons/profile.png' %}" class="header_icon" onmouseover="hoverProfile(this);" onmouseout="unhoverProfile(this);"></a>
                             {% endif %}

@@ -15,6 +15,10 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#Create Temp directory for image upload
+if not os.path.exists("images/temp"):
+    os.makedirs("images/temp")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -25,6 +29,8 @@ CONSUMER_KEY = "oH5g7eTSBNDnZu6599WkOovjI"
 CONSUMER_SECRET = "9EIZusmUf7qWdtDTaRvVmpPFDnTUzrr5P20Tlk9OhAfNOoHKPY"
 ACCESS_TOKEN = "1052857003385778177-oEgxU5nlfm8RwHYSqLESH6tPCS1gAd"
 ACCESS_TOKEN_SECRET = "WAfh4YvQ9lueDiu9PRnAVuibFo7zGSR6C5zVh08pOrhCV"
+ORCID_ID = "APP-YA50DD36ZNPTP3AG"
+ORCID_SECRET = "fa3fa518-1892-420c-9d8f-92afcda9d135"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,7 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/check_orcid"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "images")

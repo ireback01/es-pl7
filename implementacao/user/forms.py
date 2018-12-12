@@ -18,18 +18,6 @@ class SignUp(UserCreationForm):
             raise forms.ValidationError(u'Email addresses must be unique.')
         return email
 
-class EditProfileForm(UserChangeForm):
-    first_name = forms.CharField(max_length=256, required=True)
-    last_name = forms.CharField(max_length=256, required=True)
-
-    class Meta:
-        model = User
-        fields=(
-            'first_name',
-            'last_name',
-            'password',
-        )
-
 def validate_orcid(value):
     split = value.split("-")
     if len(split) != 4:
@@ -50,11 +38,9 @@ class ProfileForm(forms.ModelForm):
 
     interests    = forms.CharField(max_length=256, required=False)
     subreddits = forms.CharField(max_length=512, required=False)
-    affiliation  = forms.CharField(max_length=30, required=True, help_text='*')
-    research_group = forms.CharField(max_length=30, required=True, help_text='*')
+    research_group = forms.URLField(max_length=100, required=True, help_text='*')
     linked_in    = forms.URLField(required=False, help_text='Insert Linked In url')
     image        = forms.ImageField(required=False)
-    orcid        = forms.CharField(max_length=19, required=True, help_text='*')
     birth_date   = forms.DateField(required=True,  help_text='Format: yyyy-mm-dd')
     gender       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),required=False)
     about_me     = forms.CharField(max_length=300, help_text='Max: 300 letters', required=False)
@@ -67,11 +53,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = (
-            'affiliation',
             'research_group',
             'linked_in',
             'image',
-            'orcid',
             'subreddits',
             'birth_date',
             'gender',
